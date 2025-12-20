@@ -2,16 +2,16 @@
     <!-- Hero Section -->
     <div class="relative bg-slate-900 overflow-hidden">
         <div class="absolute inset-0">
-            <img src="/images/home-hero-v2.jpg" alt="Mining Background" class="w-full h-full object-cover opacity-20">
+            <img src="/images/miner-sunset.jpg" alt="Mining Background" class="w-full h-full object-cover opacity-20">
             <div class="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/80 to-transparent"></div>
         </div>
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
             <div class="md:w-2/3">
                 <h1 class="text-4xl md:text-6xl font-bold text-white tracking-tight mb-6">
-                    L'avenir minier du <span class="text-emerald-500">Congo</span> commence ici.
+                    L'avenir minier et industriel du <span class="text-emerald-500">Congo</span> commence ici !
                 </h1>
                 <p class="text-lg md:text-xl text-slate-300 mb-8 leading-relaxed max-w-2xl">
-                    Hazina Mining Hub est le pont entre le potentiel minier et les entrepreneurs locaux. Nous transformons les richesses naturelles en opportunités durables pour tous.
+                    Nous plaçons les entrepreneurs congolais au cœur de l’écosystème minier. 
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
                     <a href="/contact" wire:navigate class="inline-flex justify-center items-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-slate-900 bg-emerald-600 hover:bg-emerald-700 transition shadow-lg shadow-emerald-600/30">
