@@ -141,8 +141,14 @@
                             <h3 class="text-sm font-semibold text-emerald-400 tracking-wider uppercase mb-4">Contact</h3>
                             <ul class="space-y-3 text-slate-400 text-sm">
                                 <li>Lubumbashi, RDC</li>
-                                <li>contact@hazinamininghub.com</li>
-                                <li>+243 000 000 000</li>
+                                <li>hello@hazinahub.com</li>
+                                <li>+243841296667</li>
+                                <li class="flex gap-4 mt-2">
+                                    <a href="https://twitter.com/hazinahub" target="_blank" class="hover:text-white transition">X (Twitter)</a>
+                                    <a href="https://facebook.com/share/1E7BjBojks/?mibextid=wwXIfr" target="_blank" class="hover:text-white transition">Facebook</a>
+                                    <a href="https://www.instagram.com/hazina_mining_hub?igsh=dHVwZ2ltcTlwYnBs&utm_source=qr" target="_blank" class="hover:text-white transition">Instagram</a>
+                                    <a href="https://www.linkedin.com/company/naissance-mark%C3%A9ting/" target="_blank" class="hover:text-white transition">LinkedIn</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
