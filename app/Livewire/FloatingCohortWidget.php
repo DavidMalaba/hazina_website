@@ -20,7 +20,7 @@ class FloatingCohortWidget extends Component
         }
 
         $this->cohort = \App\Models\Cohort::where('status', 'open')
-            ->where('registration_end_date', '>=', now())
+            ->whereDate('registration_end_date', '>=', today())
             ->latest()
             ->first();
 

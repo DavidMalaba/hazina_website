@@ -213,7 +213,7 @@
                     <a href="{{ route('cohorts.show', $cohort) }}" wire:navigate data-reveal="fade-up" data-reveal-group="cohorts" class="group bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl hover:shadow-emerald-500/10 hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
                         <div class="aspect-video bg-slate-200 relative overflow-hidden">
                             @if($cohort->image)
-                                <img src="{{ $cohort->image }}" alt="{{ $cohort->name }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <img src="{{ asset('storage/' . $cohort->image) }}" alt="{{ $cohort->name }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                             @endif
                             <div class="absolute top-4 left-4">
                                 @if($cohort->status === 'open')
@@ -264,7 +264,7 @@
                     <a href="{{ route('blog.show', $post) }}" wire:navigate data-reveal="fade-up" data-reveal-group="news" class="group block">
                         <div class="aspect-video bg-slate-100 rounded-2xl overflow-hidden mb-4">
                             @if($post->image)
-                                <img src="{{ $post->image }}" alt="{{ $post->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                             @endif
                         </div>
                         <div class="text-sm text-slate-500 mb-2">{{ $post->published_at->format('d M Y') }}</div>
