@@ -90,10 +90,15 @@
                         </div>
                     </div>
                     
-                    <a href="{{ route('cohorts.register', $cohort) }}" wire:navigate class="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-emerald-600 text-white font-semibold text-sm transition-all duration-300 shadow-md hover:shadow-emerald-600/30">
-                        Postuler maintenant
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                    </a>
+                    <div class="grid grid-cols-2 gap-3">
+                        <a href="{{ route('cohorts.show', $cohort) }}" wire:navigate class="flex items-center justify-center py-2.5 px-3 rounded-xl bg-white border border-slate-200 hover:border-emerald-500 hover:text-emerald-600 text-slate-700 font-semibold text-sm transition-all duration-300 shadow-sm text-center">
+                            En savoir plus
+                        </a>
+                        <a href="{{ route('cohorts.register', $cohort) }}" wire:navigate class="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-emerald-600 text-white font-semibold text-sm transition-all duration-300 shadow-md hover:shadow-emerald-600/30 text-center">
+                            S'inscrire
+                            <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
