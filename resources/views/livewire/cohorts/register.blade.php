@@ -333,7 +333,6 @@
                                 <option value="">— Sélectionner —</option>
                                 <option value="homme">Homme</option>
                                 <option value="femme">Femme</option>
-                                <option value="autre">Autre / Ne souhaite pas préciser</option>
                             </select>
                             @error('gender') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
                         </div>
