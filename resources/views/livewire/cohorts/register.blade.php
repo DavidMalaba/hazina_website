@@ -316,12 +316,12 @@
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Téléphone <span class="text-red-500">*</span></label>
-                            <div class="relative">
-                                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
-                                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                            <div class="relative flex">
+                                <span class="inline-flex items-center px-4 rounded-l-xl border border-r-0 border-slate-200 bg-slate-50 text-slate-500 text-sm font-semibold">
+                                    +243
                                 </span>
-                                <input type="tel" wire:model="phone" placeholder="+243 99X XXX XXX"
-                                    class="w-full rounded-xl border-slate-200 bg-white shadow-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-3 pl-10 pr-4 text-sm transition">
+                                <input type="tel" wire:model="phone" placeholder="81X XXX XXX" maxlength="9" pattern="[0-9]{9}"
+                                    class="w-full rounded-r-xl border-slate-200 bg-white shadow-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-3 px-4 text-sm transition">
                             </div>
                             @error('phone') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
                         </div>
@@ -330,7 +330,7 @@
                         <div>
                             <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Genre <span class="text-red-500">*</span></label>
                             <select wire:model="gender" class="w-full rounded-xl border-slate-200 bg-white shadow-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-3 px-4 text-slate-900 text-sm transition">
-                                <option value="">— Sélectionner —</option>
+                                <option value="">Sélectionner</option>
                                 <option value="homme">Homme</option>
                                 <option value="femme">Femme</option>
                             </select>

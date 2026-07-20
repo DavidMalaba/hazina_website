@@ -195,7 +195,7 @@ class Register extends Component
                 'first_name'  => 'required|string|min:2',
                 'last_name'   => 'required|string|min:2',
                 'email'       => 'required|email',
-                'phone'       => 'required|string',
+                'phone'       => 'required|digits:9',
                 'gender'      => 'required|string',
                 'birthdate'   => 'nullable|date',
                 'bio'         => 'nullable|string|max:1000',
@@ -247,7 +247,7 @@ class Register extends Component
             [
                 'first_name' => $this->first_name,
                 'last_name'  => $this->last_name,
-                'phone'      => $this->phone,
+                'phone'      => '+243' . $this->phone,
                 'gender'     => $this->gender,
                 'birthdate'  => $this->birthdate ?: null,
                 'bio'        => $this->bio,
