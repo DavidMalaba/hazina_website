@@ -5,7 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>{{ $title ?? 'Hazina Mining Hub - L\'avenir minier du Congo' }}</title>
-        
+        <meta property="og:title" content="{{ $title ?? 'Hazina Mining Hub - L\'avenir minier du Congo' }}">
+        <meta name="description" content="{{ $description ?? 'Hazina Mining Hub est un pont entre le potentiel minier et les entrepreneurs locaux.' }}">
+        <meta property="og:description" content="{{ $description ?? 'Hazina Mining Hub est un pont entre le potentiel minier et les entrepreneurs locaux.' }}">
+        <meta property="og:image" content="{{ isset($image) ? asset('storage/' . $image) : asset('images/logo.png') }}">
+        <meta property="og:url" content="{{ url()->current() }}">
+        <meta property="og:type" content="website">
+        <meta name="twitter:card" content="summary_large_image">
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
