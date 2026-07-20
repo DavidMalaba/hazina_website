@@ -8,74 +8,30 @@
         </div>
 
         <div class="space-y-16">
-            <!-- Institutions Publiques -->
+            @foreach($partnersGrouped as $category => $partners)
             <div>
-                <h2 class="text-2xl font-bold text-slate-900 mb-8 border-l-4 border-emerald-500 pl-4">Institutions Publiques</h2>
+                <h2 class="text-2xl font-bold text-slate-900 mb-8 border-l-4 border-emerald-500 pl-4">{{ $categoryNames[$category] ?? $category }}</h2>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    @foreach($partners as $partner)
                     <div class="flex items-center justify-center p-8 bg-slate-50 rounded-xl border border-slate-100 hover:shadow-md transition">
-                        <span class="text-xl font-bold text-slate-400">Ministère des Mines</span>
+                        @php
+                            $content = $partner->logo 
+                                ? '<img src="'.asset('storage/'.$partner->logo).'" alt="'.$partner->name.'" class="max-h-12 object-contain grayscale hover:grayscale-0 transition duration-300">'
+                                : '<span class="text-xl font-bold text-slate-400 hover:text-emerald-600 transition">'.$partner->name.'</span>';
+                        @endphp
+                        
+                        @if($partner->website)
+                            <a href="{{ str_starts_with($partner->website, 'http') ? $partner->website : 'https://'.$partner->website }}" target="_blank" rel="noopener noreferrer">
+                                {!! $content !!}
+                            </a>
+                        @else
+                            {!! $content !!}
+                        @endif
                     </div>
-                    <div class="flex items-center justify-center p-8 bg-slate-50 rounded-xl border border-slate-100 hover:shadow-md transition">
-                        <span class="text-xl font-bold text-slate-400">ARSP</span>
-                    </div>
-                    <div class="flex items-center justify-center p-8 bg-slate-50 rounded-xl border border-slate-100 hover:shadow-md transition">
-                        <span class="text-xl font-bold text-slate-400">Camine</span>
-                    </div>
-                    <div class="flex items-center justify-center p-8 bg-slate-50 rounded-xl border border-slate-100 hover:shadow-md transition">
-                        <span class="text-xl font-bold text-slate-400">Gouvernement Provincial</span>
-                    </div>
+                    @endforeach
                 </div>
             </div>
-
-            <!-- Entreprises Minières -->
-            <div>
-                <h2 class="text-2xl font-bold text-slate-900 mb-8 border-l-4 border-emerald-500 pl-4">Entreprises Minières</h2>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                    <div class="flex items-center justify-center p-8 bg-slate-50 rounded-xl border border-slate-100 hover:shadow-md transition">
-                        <span class="text-xl font-bold text-slate-400">Glencore</span>
-                    </div>
-                    <div class="flex items-center justify-center p-8 bg-slate-50 rounded-xl border border-slate-100 hover:shadow-md transition">
-                        <span class="text-xl font-bold text-slate-400">TFM</span>
-                    </div>
-                    <div class="flex items-center justify-center p-8 bg-slate-50 rounded-xl border border-slate-100 hover:shadow-md transition">
-                        <span class="text-xl font-bold text-slate-400">Kamoa</span>
-                    </div>
-                    <div class="flex items-center justify-center p-8 bg-slate-50 rounded-xl border border-slate-100 hover:shadow-md transition">
-                        <span class="text-xl font-bold text-slate-400">KCC</span>
-                    </div>
-                    <div class="flex items-center justify-center p-8 bg-slate-50 rounded-xl border border-slate-100 hover:shadow-md transition">
-                        <span class="text-xl font-bold text-slate-400">Gecamine</span>
-                    </div>
-                    <div class="flex items-center justify-center p-8 bg-slate-50 rounded-xl border border-slate-100 hover:shadow-md transition">
-                        <span class="text-xl font-bold text-slate-400">Barrick</span>
-                    </div>
-                    <div class="flex items-center justify-center p-8 bg-slate-50 rounded-xl border border-slate-100 hover:shadow-md transition">
-                        <span class="text-xl font-bold text-slate-400">MMG</span>
-                    </div>
-                    <div class="flex items-center justify-center p-8 bg-slate-50 rounded-xl border border-slate-100 hover:shadow-md transition">
-                        <span class="text-xl font-bold text-slate-400">Ivanhoe</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Écosystème & Finance -->
-            <div>
-                <h2 class="text-2xl font-bold text-slate-900 mb-8 border-l-4 border-emerald-500 pl-4">Écosystème & Finance</h2>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                    <div class="flex items-center justify-center p-8 bg-slate-50 rounded-xl border border-slate-100 hover:shadow-md transition">
-                        <span class="text-xl font-bold text-slate-400">Silikin</span>
-                    </div>
-                    <div class="flex items-center justify-center p-8 bg-slate-50 rounded-xl border border-slate-100 hover:shadow-md transition">
-                        <span class="text-xl font-bold text-slate-400">EquityBCDC</span>
-                    </div>
-                    <div class="flex items-center justify-center p-8 bg-slate-50 rounded-xl border border-slate-100 hover:shadow-md transition">
-                        <span class="text-xl font-bold text-slate-400">Rawbank</span>
-                    </div>
-                    <div class="flex items-center justify-center p-8 bg-slate-50 rounded-xl border border-slate-100 hover:shadow-md transition">
-                        <span class="text-xl font-bold text-slate-400">Enabel</span>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
         
         <div class="mt-20 bg-emerald-900 rounded-3xl p-12 text-center">

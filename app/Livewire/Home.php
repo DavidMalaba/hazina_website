@@ -13,7 +13,13 @@ class Home extends Component
             'upcomingCohorts' => \App\Models\Cohort::whereIn('status', ['open', 'upcoming'])
                 ->orderBy('start_date', 'asc')
                 ->take(3)
-                ->get()
+                ->get(),
+            'topPartners' => \App\Models\Company::where('type', 'partner')->inRandomOrder()->take(5)->get(),
+            'stats' => [
+                'entrepreneurs' => \App\Models\CohortRegistration::count(),
+                'cohorts' => \App\Models\Cohort::count(),
+                'partners' => \App\Models\Company::where('type', 'partner')->count(),
+            ],
         ]);
     }
 }

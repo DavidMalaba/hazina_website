@@ -14,10 +14,18 @@ return new class extends Migration
         Schema::create('cohort_registrations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('cohort_id')->constrained()->onDelete('cascade');
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone');
+            $table->foreignId('company_id')->constrained()->onDelete('cascade');
+            
+            // Motivation & Projet
+            $table->text('motivation');
+            $table->text('problem_solved')->nullable();
+            $table->text('solution_description')->nullable();
             $table->text('project_description');
+            $table->text('target_market')->nullable();
+            $table->text('desired_partners')->nullable();
+
+            $table->string('status')->default('pending'); // 'pending', 'accepted', 'rejected'
+
             $table->timestamps();
         });
     }

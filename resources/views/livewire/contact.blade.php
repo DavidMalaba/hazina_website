@@ -17,29 +17,44 @@
                 <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-8 md:p-12">
                     <h2 class="text-2xl font-bold text-slate-900 mb-2">Envoyez-nous un message</h2>
                     <p class="text-slate-600 mb-8">Remplissez le formulaire ci-dessous, nous vous répondrons dans les plus brefs délais.</p>
+                    @if (session()->has('success'))
+                        <div class="mb-8 p-4 bg-emerald-50 text-emerald-700 rounded-xl border border-emerald-200">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     
-                    <form class="space-y-6">
+                    <form wire:submit.prevent="submit" class="space-y-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label for="name" class="block text-sm font-medium text-slate-700 mb-1">Nom complet</label>
-                                <input type="text" id="name" class="w-full rounded-xl border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 transition">
+                                <input type="text" id="name" wire:model="name" class="w-full rounded-xl border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 transition">
+                                @error('name') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                             </div>
                             <div>
                                 <label for="email" class="block text-sm font-medium text-slate-700 mb-1">Email</label>
-                                <input type="email" id="email" class="w-full rounded-xl border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 transition">
+                                <input type="email" id="email" wire:model="email" class="w-full rounded-xl border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 transition">
+                                @error('email') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="md:col-span-2">
+                                <label for="phone" class="block text-sm font-medium text-slate-700 mb-1">Numéro de téléphone (Optionnel)</label>
+                                <input type="tel" id="phone" wire:model="phone" class="w-full rounded-xl border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 transition">
+                                @error('phone') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                             </div>
                         </div>
                         <div>
                             <label for="subject" class="block text-sm font-medium text-slate-700 mb-1">Sujet</label>
-                            <input type="text" id="subject" class="w-full rounded-xl border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 transition">
+                            <input type="text" id="subject" wire:model="subject" class="w-full rounded-xl border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 transition">
+                            @error('subject') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                         </div>
                         <div>
                             <label for="message" class="block text-sm font-medium text-slate-700 mb-1">Message</label>
-                            <textarea id="message" rows="6" class="w-full rounded-xl border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 transition"></textarea>
+                            <textarea id="message" wire:model="message" rows="6" class="w-full rounded-xl border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 transition"></textarea>
+                            @error('message') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                         </div>
-                        <button type="submit" class="inline-flex justify-center items-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-slate-900 bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition shadow-lg shadow-emerald-600/20">
-                            Envoyer le message
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                        <button type="submit" class="inline-flex justify-center items-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-slate-900 bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition shadow-lg shadow-emerald-600/20 disabled:opacity-50" wire:loading.attr="disabled">
+                            <span wire:loading.remove>Envoyer le message</span>
+                            <span wire:loading>Envoi en cours...</span>
+                            <svg wire:loading.remove class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                         </button>
                     </form>
                 </div>

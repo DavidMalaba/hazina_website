@@ -5,6 +5,8 @@
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
+@plugin '@tailwindcss/forms';
+
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
@@ -27,4 +29,64 @@
     --color-emerald-700: #5da30c;
     --color-emerald-800: #4a7d0f;
     --color-emerald-900: #3d6611;
+
+    /* Bold accent palette */
+    --color-violet-500: #8b5cf6;
+    --color-violet-600: #7c3aed;
+    --color-amber-500: #f59e0b;
+    --color-amber-600: #d97706;
+    --color-fuchsia-500: #d946ef;
+    --color-sky-500: #0ea5e9;
+
+    /* Ambient motion */
+    --animate-blob: blob 14s ease-in-out infinite;
+    --animate-float: float 6s ease-in-out infinite;
+    --animate-float-slow: float 9s ease-in-out infinite;
+    --animate-gradient: gradient-shift 8s ease infinite;
+    --animate-shimmer: shimmer 2.5s linear infinite;
+}
+
+@keyframes blob {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -40px) scale(1.15); }
+    66% { transform: translate(-25px, 25px) scale(0.9); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-18px); }
+}
+
+@keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+@utility bg-mesh {
+    background-image:
+        radial-gradient(at 20% 20%, color-mix(in srgb, var(--color-emerald-500) 35%, transparent) 0px, transparent 50%),
+        radial-gradient(at 80% 10%, color-mix(in srgb, var(--color-violet-500) 35%, transparent) 0px, transparent 50%),
+        radial-gradient(at 90% 80%, color-mix(in srgb, var(--color-amber-500) 30%, transparent) 0px, transparent 50%),
+        radial-gradient(at 10% 90%, color-mix(in srgb, var(--color-sky-500) 30%, transparent) 0px, transparent 50%);
+}
+
+@utility text-gradient {
+    background-image: linear-gradient(90deg, var(--color-emerald-400), var(--color-sky-500), var(--color-violet-500));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+@utility animate-gradient {
+    animation: var(--animate-gradient);
+}
+
+[data-reveal] {
+    opacity: 0;
 }
