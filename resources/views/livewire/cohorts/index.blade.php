@@ -12,7 +12,7 @@
                 <a href="{{ route('cohorts.show', $cohort) }}" wire:navigate class="group bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-md transition flex flex-col h-full">
                     <div class="aspect-video bg-slate-200 relative overflow-hidden">
                         @if($cohort->image)
-                            <img src="{{ $cohort->image }}" alt="{{ $cohort->name }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <img src="{{ asset('storage/' . $cohort->image) }}" alt="{{ $cohort->name }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         @endif
                         <div class="absolute top-4 left-4">
                             @if($cohort->status === 'open')
@@ -37,7 +37,7 @@
                             </span>
                         </div>
                         <p class="text-slate-600 line-clamp-3 mb-6 flex-grow">
-                            {{ $cohort->description }}
+                            {{ Str::limit(html_entity_decode(strip_tags($cohort->description)), 150) }}
                         </p>
                         <div class="mt-auto flex items-center text-emerald-600 font-medium">
                             Voir le programme
