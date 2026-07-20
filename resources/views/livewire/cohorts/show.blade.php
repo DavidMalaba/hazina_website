@@ -83,19 +83,47 @@
                 @endif
 
                 <div x-data="{ shareOpen: false }" class="relative">
-                    <button @click="shareOpen = !shareOpen" @click.outside="shareOpen = false" class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-4 rounded-full backdrop-blur-sm border border-white/20 transition-all duration-300 text-base">
+                    <button @click="shareOpen = true" class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-4 rounded-full backdrop-blur-sm border border-white/20 transition-all duration-300 text-base">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
                         Partager
                     </button>
 
-                    <div x-show="shareOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-2" class="absolute left-0 mt-3 w-80 sm:w-96 bg-white rounded-3xl shadow-2xl p-5 z-50 text-slate-800" style="display: none;">
-                        
-                        <div class="mb-4 pb-4 border-b border-slate-100">
-                            <h4 class="font-bold text-slate-900 mb-1">Faites passer le mot !</h4>
-                            <p class="text-sm text-slate-500 leading-relaxed">
-                                Vous connaissez un entrepreneur ou une entreprise qui répond à ces critères ? Partagez-leur cette opportunité.
-                            </p>
-                        </div>
+                    <template x-teleport="body">
+                        <div x-show="shareOpen" class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6" style="display: none;">
+                            <!-- Backdrop -->
+                            <div x-show="shareOpen"
+                                 x-transition:enter="transition ease-out duration-300"
+                                 x-transition:enter-start="opacity-0 backdrop-blur-none"
+                                 x-transition:enter-end="opacity-100 backdrop-blur-sm"
+                                 x-transition:leave="transition ease-in duration-200"
+                                 x-transition:leave-start="opacity-100 backdrop-blur-sm"
+                                 x-transition:leave-end="opacity-0 backdrop-blur-none"
+                                 class="absolute inset-0 bg-slate-900/60"
+                                 @click="shareOpen = false"></div>
+                            
+                            <!-- Modal -->
+                            <div x-show="shareOpen"
+                                 x-transition:enter="transition ease-out duration-300 delay-75"
+                                 x-transition:enter-start="opacity-0 translate-y-8 scale-95"
+                                 x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                                 x-transition:leave="transition ease-in duration-200"
+                                 x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                                 x-transition:leave-end="opacity-0 translate-y-8 scale-95"
+                                 class="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl p-6 md:p-8 z-10 text-slate-800">
+                                
+                                <button @click="shareOpen = false" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                </button>
+
+                                <div class="mb-6 pb-6 border-b border-slate-100 text-center">
+                                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+                                    </div>
+                                    <h4 class="text-xl font-black text-slate-900 mb-2">Faites passer le mot !</h4>
+                                    <p class="text-sm md:text-base text-slate-500 leading-relaxed">
+                                        Vous connaissez un entrepreneur ou une entreprise qui répond à ces critères ? Partagez-leur cette opportunité.
+                                    </p>
+                                </div>
 
                         <div class="grid grid-cols-2 gap-2 mb-2">
                             <a href="https://api.whatsapp.com/send?text={{ urlencode($cohort->name . ' - Découvrez ce programme sur Hazina Mining Hub : ' . url()->current()) }}" target="_blank" class="flex flex-col items-center justify-center gap-2 p-3 hover:bg-emerald-50 rounded-xl transition-colors font-semibold text-xs text-slate-700">
@@ -121,7 +149,9 @@
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
                             Copier le lien
                         </button>
-                    </div>
+                            </div>
+                        </div>
+                    </template>
                 </div>
             </div>
         </div>
