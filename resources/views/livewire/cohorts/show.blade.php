@@ -37,7 +37,7 @@
             <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-900"></div>
         @endif
 
-        <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+        <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
 
             <a href="{{ route('cohorts.index') }}" wire:navigate class="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition mb-8 text-sm font-medium">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
@@ -104,7 +104,7 @@
                     <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">Début programme</div>
                 </div>
                 <div class="px-6 py-5 text-center">
-                    <div class="text-2xl font-black text-white">{{ $cohort->start_date->diffInMonths($cohort->end_date) }}</div>
+                    <div class="text-2xl font-black text-white">{{ (int) $cohort->start_date->diffInMonths($cohort->end_date) }}</div>
                     <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">Mois d'accompagnement</div>
                 </div>
             </div>
