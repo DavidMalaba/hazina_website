@@ -68,11 +68,18 @@
                 <div class="bg-slate-50 border-t border-slate-100 p-5 mt-auto relative z-10">
                     <div class="flex items-center justify-between mb-4">
                         <div class="flex flex-col">
-                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Clôture le</span>
-                            <span class="text-sm font-semibold text-slate-700 flex items-center gap-1">
-                                <svg class="w-3.5 h-3.5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                                {{ $cohort->registration_end_date->format('d M Y') }}
-                            </span>
+                            @if($cohort->registration_end_date)
+                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Clôture le</span>
+                                <span class="text-sm font-semibold text-slate-700 flex items-center gap-1">
+                                    <svg class="w-3.5 h-3.5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    {{ $cohort->registration_end_date->format('d M Y') }}
+                                </span>
+                            @else
+                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Statut</span>
+                                <span class="text-sm font-semibold text-emerald-600 flex items-center gap-1">
+                                    En cours
+                                </span>
+                            @endif
                         </div>
                         <div class="flex flex-col text-right">
                             <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Places</span>
