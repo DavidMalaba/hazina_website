@@ -62,12 +62,13 @@ class CohortResource extends Resource
                 Forms\Components\Select::make('status')
                     ->label('Statut')
                     ->options([
-                        'draft' => 'Brouillon',
-                        'published' => 'Publiée',
-                        'closed' => 'Fermée',
+                        'upcoming' => 'À venir',
+                        'open' => 'Ouverte (inscriptions)',
+                        'closed' => 'Fermée (en cours)',
+                        'completed' => 'Terminée',
                     ])
                     ->required()
-                    ->default('draft'),
+                    ->default('upcoming'),
                 Forms\Components\FileUpload::make('image')
                     ->image()
                     ->columnSpanFull(),
@@ -87,9 +88,10 @@ class CohortResource extends Resource
                             ->label('Statut')
                             ->badge()
                             ->color(fn (string $state): string => match ($state) {
-                                'draft' => 'gray',
-                                'published' => 'success',
+                                'upcoming' => 'gray',
+                                'open' => 'success',
                                 'closed' => 'danger',
+                                'completed' => 'info',
                                 default => 'primary',
                             }),
                         \Filament\Infolists\Components\TextEntry::make('sector')
@@ -133,9 +135,10 @@ class CohortResource extends Resource
                     ->label('Statut')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
-                        'draft' => 'gray',
-                        'published' => 'success',
+                        'upcoming' => 'gray',
+                        'open' => 'success',
                         'closed' => 'danger',
+                        'completed' => 'info',
                         default => 'primary',
                     }),
                 Tables\Columns\TextColumn::make('registrations_count')
