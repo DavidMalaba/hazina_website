@@ -344,20 +344,7 @@
                             @error('birthdate') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
                         </div>
                     </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Tranche d'âge <span class="text-red-500">*</span></label>
-                            <select wire:model="age_range" class="w-full rounded-xl border-slate-200 bg-white shadow-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-3 px-4 text-slate-900 text-sm transition">
-                                <option value="">— Sélectionner —</option>
-                                <option value="18-24">18 – 24 ans</option>
-                                <option value="25-34">25 – 34 ans</option>
-                                <option value="35-44">35 – 44 ans</option>
-                                <option value="45-54">45 – 54 ans</option>
-                                <option value="55+">55 ans et plus</option>
-                            </select>
-                            @error('age_range') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
-                        </div>
-                    </div>
+
                     <div>
                         <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">À propos de vous <span class="text-slate-400 font-normal normal-case">(optionnel)</span></label>
                         <textarea wire:model="bio" rows="4" placeholder="Votre parcours, vos expertises, ce qui vous définit en tant qu'entrepreneur..."

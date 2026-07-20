@@ -24,7 +24,6 @@ class Register extends Component
     public $phone = '';
     public $gender = '';
     public $birthdate = '';
-    public $age_range = '';
     public $bio = '';
 
     // Step 2: Entreprise
@@ -73,7 +72,7 @@ class Register extends Component
         return [
             'currentStep',
             // Step 1
-            'first_name', 'last_name', 'email', 'phone', 'gender', 'birthdate', 'age_range', 'bio',
+            'first_name', 'last_name', 'email', 'phone', 'gender', 'birthdate', 'bio',
             // Step 2
             'company_name', 'business_age_range', 'employee_count', 'company_description',
             'industry_sector', 'company_email', 'company_website', 'address', 'province_id', 'city',
@@ -147,7 +146,7 @@ class Register extends Component
         $this->showDraftScreen = false;
         $this->currentStep = 1;
         $this->reset([
-            'first_name', 'last_name', 'email', 'phone', 'gender', 'birthdate', 'age_range', 'bio',
+            'first_name', 'last_name', 'email', 'phone', 'gender', 'birthdate', 'bio',
             'company_name', 'business_age_range', 'employee_count', 'company_description',
             'industry_sector', 'company_email', 'company_website', 'address', 'province_id', 'city',
             'revenue_range', 'client_count_range',
@@ -199,7 +198,6 @@ class Register extends Component
                 'phone'       => 'required|string',
                 'gender'      => 'required|string',
                 'birthdate'   => 'nullable|date',
-                'age_range'   => 'required|string',
                 'bio'         => 'nullable|string|max:1000',
             ]),
             2 => $this->validate([
