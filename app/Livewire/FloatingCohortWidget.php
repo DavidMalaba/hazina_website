@@ -20,15 +20,8 @@ class FloatingCohortWidget extends Component
         }
 
         $this->cohort = \App\Models\Cohort::where('status', 'open')
-            ->where(function ($query) {
-                $query->where(function ($q) {
-                    $q->whereNull('registration_start_date')
-                      ->orWhereDate('registration_start_date', '<=', today());
-                })->where(function ($q) {
-                    $q->whereNull('registration_end_date')
-                      ->orWhereDate('registration_end_date', '>=', today());
-                });
-            })
+            ->whereDate('registration_start_date', '<=', today())
+            ->whereDate('registration_end_date', '>=', today())
             ->latest()
             ->first();
 
