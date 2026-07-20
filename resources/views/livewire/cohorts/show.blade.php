@@ -37,7 +37,7 @@
             <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-900"></div>
         @endif
 
-        <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
 
             <a href="{{ route('cohorts.index') }}" wire:navigate class="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition mb-8 text-sm font-medium">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
@@ -75,7 +75,7 @@
             </p>
 
             @if($cohort->status === 'open')
-                <div class="mt-10">
+                <div class="mt-6">
                     <a href="{{ route('cohorts.register', $cohort) }}" wire:navigate class="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold px-8 py-4 rounded-full transition-all duration-300 shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50 hover:-translate-y-0.5 text-base">
                         Postuler maintenant
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
