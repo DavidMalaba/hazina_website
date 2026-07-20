@@ -70,8 +70,8 @@
                 {{ $cohort->name }}
             </h1>
 
-            <p class="text-slate-300 text-lg md:text-xl max-w-2xl leading-relaxed">
-                {{ Str::limit(html_entity_decode(strip_tags($cohort->description)), 200) }}
+            <p class="text-slate-300 text-lg md:text-xl max-w-2xl leading-relaxed whitespace-pre-line">
+                {{ Str::limit(html_entity_decode(strip_tags(str_replace(['</p>', '<br>', '<br/>', '<br />'], "\n", $cohort->description))), 200) }}
             </p>
 
             @if($cohort->status === 'open')

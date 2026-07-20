@@ -36,8 +36,8 @@
                                 {{ $cohort->start_date->format('M Y') }} - {{ $cohort->end_date->format('M Y') }}
                             </span>
                         </div>
-                        <p class="text-slate-600 line-clamp-3 mb-6 flex-grow">
-                            {{ Str::limit(html_entity_decode(strip_tags($cohort->description)), 150) }}
+                        <p class="text-slate-600 line-clamp-3 mb-6 flex-grow whitespace-pre-line">
+                            {{ Str::limit(html_entity_decode(strip_tags(str_replace(['</p>', '<br>', '<br/>', '<br />'], "\n", $cohort->description))), 150) }}
                         </p>
                         <div class="mt-auto flex items-center text-emerald-600 font-medium">
                             Voir le programme
