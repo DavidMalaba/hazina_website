@@ -48,11 +48,15 @@ class CohortResource extends Resource
                     ->required(),
                 Forms\Components\DatePicker::make('end_date')
                     ->label('Date de fin')
-                    ->required(),
+                    ->required()
+                    ->afterOrEqual('start_date'),
                 Forms\Components\DatePicker::make('registration_start_date')
-                    ->label('Début des inscriptions'),
+                    ->label('Début des inscriptions')
+                    ->required(),
                 Forms\Components\DatePicker::make('registration_end_date')
-                    ->label('Fin des inscriptions'),
+                    ->label('Fin des inscriptions')
+                    ->required()
+                    ->afterOrEqual('registration_start_date'),
                 Forms\Components\TextInput::make('max_participants')
                     ->label('Participants max')
                     ->numeric(),
