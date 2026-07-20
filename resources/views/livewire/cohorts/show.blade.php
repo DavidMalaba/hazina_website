@@ -88,26 +88,37 @@
                         Partager
                     </button>
 
-                    <div x-show="shareOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-2" class="absolute left-0 mt-3 w-64 bg-white rounded-2xl shadow-2xl p-2 z-50 text-slate-800" style="display: none;">
-                        <a href="https://api.whatsapp.com/send?text={{ urlencode($cohort->name . ' - Découvrez ce programme sur Hazina Mining Hub : ' . url()->current()) }}" target="_blank" class="flex items-center gap-3 px-4 py-3 hover:bg-emerald-50 rounded-xl transition-colors font-medium">
-                            <svg class="w-5 h-5 text-emerald-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.128.552 4.137 1.554 5.928L.24 23.76l5.961-1.564A11.968 11.968 0 0012.031 24c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zM17.433 17.065c-.255.719-1.482 1.341-2.035 1.393-.52.052-1.192.203-3.92-1.025-3.268-1.472-5.405-4.809-5.568-5.025-.162-.216-1.332-1.776-1.332-3.383 0-1.608.835-2.404 1.134-2.73.298-.325.649-.406.866-.406.216 0 .433.007.622.015.197.009.46-.079.721.551.27.649.919 2.247.999 2.41.08.162.135.352.027.568-.108.216-.162.352-.325.541-.162.189-.344.42-.486.568-.162.162-.338.337-.149.662.189.325.845 1.392 1.812 2.254 1.25 1.116 2.298 1.458 2.622 1.621.325.162.514.135.703-.081.189-.216.811-.945 1.027-1.27.216-.325.433-.27.73-.162.298.108 1.892.892 2.217 1.054.325.162.541.243.622.378.081.135.081.784-.174 1.503z"/></svg>
-                            WhatsApp
-                        </a>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" target="_blank" class="flex items-center gap-3 px-4 py-3 hover:bg-blue-50 rounded-xl transition-colors font-medium">
-                            <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.791-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                            Facebook
-                        </a>
-                        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(url()->current()) }}" target="_blank" class="flex items-center gap-3 px-4 py-3 hover:bg-blue-50 rounded-xl transition-colors font-medium">
-                            <svg class="w-5 h-5 text-blue-700" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                            LinkedIn
-                        </a>
-                        <a href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}&text={{ urlencode('Découvrez ' . $cohort->name . ' sur Hazina Mining Hub') }}" target="_blank" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-100 rounded-xl transition-colors font-medium">
-                            <svg class="w-5 h-5 text-slate-800" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                            X (Twitter)
-                        </a>
-                        <div class="h-px bg-slate-100 my-1"></div>
-                        <button @click="navigator.clipboard.writeText('{{ url()->current() }}'); shareOpen = false; $dispatch('notify', { message: 'Lien copié !' })" class="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-50 rounded-xl transition-colors font-medium text-slate-600">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                    <div x-show="shareOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-2" class="absolute left-0 mt-3 w-80 sm:w-96 bg-white rounded-3xl shadow-2xl p-5 z-50 text-slate-800" style="display: none;">
+                        
+                        <div class="mb-4 pb-4 border-b border-slate-100">
+                            <h4 class="font-bold text-slate-900 mb-1">Faites passer le mot !</h4>
+                            <p class="text-sm text-slate-500 leading-relaxed">
+                                Vous connaissez un entrepreneur ou une entreprise qui répond à ces critères ? Partagez-leur cette opportunité.
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2 mb-2">
+                            <a href="https://api.whatsapp.com/send?text={{ urlencode($cohort->name . ' - Découvrez ce programme sur Hazina Mining Hub : ' . url()->current()) }}" target="_blank" class="flex flex-col items-center justify-center gap-2 p-3 hover:bg-emerald-50 rounded-xl transition-colors font-semibold text-xs text-slate-700">
+                                <svg class="w-6 h-6 text-emerald-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.128.552 4.137 1.554 5.928L.24 23.76l5.961-1.564A11.968 11.968 0 0012.031 24c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zM17.433 17.065c-.255.719-1.482 1.341-2.035 1.393-.52.052-1.192.203-3.92-1.025-3.268-1.472-5.405-4.809-5.568-5.025-.162-.216-1.332-1.776-1.332-3.383 0-1.608.835-2.404 1.134-2.73.298-.325.649-.406.866-.406.216 0 .433.007.622.015.197.009.46-.079.721.551.27.649.919 2.247.999 2.41.08.162.135.352.027.568-.108.216-.162.352-.325.541-.162.189-.344.42-.486.568-.162.162-.338.337-.149.662.189.325.845 1.392 1.812 2.254 1.25 1.116 2.298 1.458 2.622 1.621.325.162.514.135.703-.081.189-.216.811-.945 1.027-1.27.216-.325.433-.27.73-.162.298.108 1.892.892 2.217 1.054.325.162.541.243.622.378.081.135.081.784-.174 1.503z"/></svg>
+                                WhatsApp
+                            </a>
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" target="_blank" class="flex flex-col items-center justify-center gap-2 p-3 hover:bg-blue-50 rounded-xl transition-colors font-semibold text-xs text-slate-700">
+                                <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.791-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                                Facebook
+                            </a>
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(url()->current()) }}" target="_blank" class="flex flex-col items-center justify-center gap-2 p-3 hover:bg-blue-50 rounded-xl transition-colors font-semibold text-xs text-slate-700">
+                                <svg class="w-6 h-6 text-blue-700" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                                LinkedIn
+                            </a>
+                            <a href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}&text={{ urlencode('Découvrez ' . $cohort->name . ' sur Hazina Mining Hub') }}" target="_blank" class="flex flex-col items-center justify-center gap-2 p-3 hover:bg-slate-100 rounded-xl transition-colors font-semibold text-xs text-slate-700">
+                                <svg class="w-6 h-6 text-slate-800" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                X (Twitter)
+                            </a>
+                        </div>
+                        
+                        <div class="h-px bg-slate-100 my-3"></div>
+                        <button @click="navigator.clipboard.writeText('{{ url()->current() }}'); shareOpen = false; $dispatch('notify', { message: 'Lien copié !' })" class="w-full flex items-center justify-center gap-3 px-4 py-3 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors font-medium text-slate-700 text-sm border border-slate-100">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
                             Copier le lien
                         </button>
                     </div>
