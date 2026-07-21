@@ -18,7 +18,10 @@ class ContactMessageResource extends Resource
     protected static ?string $model = ContactMessage::class;
 
     protected static ?string $navigationGroup = "Communications";
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-envelope-open';
+    protected static ?string $modelLabel = 'Message reçu';
+    protected static ?string $pluralModelLabel = 'Messages reçus';
+    protected static ?string $navigationLabel = 'Messages Contact';
 
     public static function canCreate(): bool
     {

@@ -18,7 +18,10 @@ class PartnerRequestResource extends Resource
     protected static ?string $model = PartnerRequest::class;
 
     protected static ?string $navigationGroup = "Communications";
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-hand-raised';
+    protected static ?string $modelLabel = 'Demande de partenariat';
+    protected static ?string $pluralModelLabel = 'Demandes de partenariat';
+    protected static ?string $navigationLabel = 'Demandes Partenaires';
 
     public static function canCreate(): bool
     {

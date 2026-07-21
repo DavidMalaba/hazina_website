@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class CohortRegistration extends Model
 {
     protected $fillable = [
+        'user_id',
+        'current_step',
         'cohort_id',
         'company_id',
         'motivation',
@@ -21,6 +23,11 @@ class CohortRegistration extends Model
     public function cohort()
     {
         return $this->belongsTo(Cohort::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function company()

@@ -18,7 +18,10 @@ class CityResource extends Resource
     protected static ?string $model = City::class;
 
     protected static ?string $navigationGroup = "Localisations";
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
+    protected static ?string $modelLabel = 'Ville';
+    protected static ?string $pluralModelLabel = 'Villes';
+    protected static ?string $navigationLabel = 'Villes';
 
     public static function form(Form $form): Form
     {

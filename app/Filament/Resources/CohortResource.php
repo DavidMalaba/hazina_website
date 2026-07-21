@@ -18,7 +18,10 @@ class CohortResource extends Resource
     protected static ?string $model = Cohort::class;
 
     protected static ?string $navigationGroup = "Événements";
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
+    protected static ?string $modelLabel = 'Cohorte';
+    protected static ?string $pluralModelLabel = 'Cohortes';
+    protected static ?string $navigationLabel = 'Cohortes';
 
     public static function form(Form $form): Form
     {

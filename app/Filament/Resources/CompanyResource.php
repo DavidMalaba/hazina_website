@@ -18,7 +18,10 @@ class CompanyResource extends Resource
     protected static ?string $model = Company::class;
 
     protected static ?string $navigationGroup = "Écosystème";
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-building-storefront';
+    protected static ?string $modelLabel = 'Entreprise';
+    protected static ?string $pluralModelLabel = 'Entreprises';
+    protected static ?string $navigationLabel = 'Entreprises';
 
     public static function form(Form $form): Form
     {
@@ -41,6 +44,7 @@ class CompanyResource extends Resource
                     ->default('applicant')
                     ->live(),
                 Forms\Components\Select::make('partner_category')
+                    ->label('Catégorie de partenaire')
                     ->options([
                         'institution' => 'Institution',
                         'mine' => 'Mine',
@@ -48,6 +52,11 @@ class CompanyResource extends Resource
                         'autre' => 'Autre',
                     ])
                     ->visible(fn (Forms\Get $get) => $get('type') === 'partner'),
+                Forms\Components\Toggle::make('show_on_website')
+                    ->label('Afficher sur le site web')
+                    ->helperText('Si activé, cette entreprise sera visible publiquement sur le site.')
+                    ->default(false)
+                    ->columnSpanFull(),
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->maxLength(255),
@@ -79,58 +88,65 @@ class CompanyResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('logo')
-                    ->circular(),
+                    ->label('Logo')
+                    ->circular()
+                    ->defaultImageUrl(fn ($record) => 'https://ui-avatars.com/api/?name=' . urlencode($record->name) . '&background=059669&color=fff&bold=true')
+                    ->size(42),
+
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
+                    ->label('Nom')
+                    ->searchable()
+                    ->sortable()
+                    ->weight('bold'),
+
                 Tables\Columns\TextColumn::make('type')
+                    ->label('Type')
                     ->badge()
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'applicant' => 'Candidat',
+                        'partner'   => 'Partenaire',
+                        default     => $state,
+                    })
                     ->color(fn (string $state): string => match ($state) {
                         'applicant' => 'gray',
-                        'partner' => 'success',
-                        default => 'gray',
+                        'partner'   => 'success',
+                        default     => 'gray',
                     }),
+
                 Tables\Columns\TextColumn::make('partner_category')
-                    ->badge(),
-                Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('website')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('industry_sector')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('business_age_range')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('employee_count')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('revenue_range')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('client_count_range')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('address')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('province_id')
-                    ->numeric()
+                    ->label('Catégorie')
+                    ->badge()
+                    ->formatStateUsing(fn (?string $state): string => match ($state) {
+                        'institution' => 'Institution',
+                        'mine'        => 'Mine',
+                        'finance'     => 'Finance',
+                        'autre'       => 'Autre',
+                        default       => '—',
+                    })
+                    ->color('info')
+                    ->placeholder('—'),
+
+                Tables\Columns\ToggleColumn::make('show_on_website')
+                    ->label('Visible sur le site')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('city_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('name')
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('type')
+                    ->label('Type')
+                    ->options([
+                        'applicant' => 'Candidat',
+                        'partner'   => 'Partenaire',
+                    ]),
+                Tables\Filters\TernaryFilter::make('show_on_website')
+                    ->label('Visible sur le site'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->label('Modifier'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()->label('Supprimer'),
                 ]),
             ]);
     }

@@ -17,11 +17,12 @@ class AuthenticationLogResource extends Resource
 {
     protected static ?string $model = AuthenticationLog::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-shield-exclamation';
+    protected static ?string $modelLabel = 'Journal de connexion';
+    protected static ?string $pluralModelLabel = 'Journaux de connexion';
+    protected static ?string $navigationLabel = 'Journal des connexions';
 
     protected static ?string $navigationGroup = 'Sécurité et Accès';
-    protected static ?string $modelLabel = 'Log de connexion';
-    protected static ?string $pluralModelLabel = 'Logs de connexion';
     protected static ?int $navigationSort = 3;
 
     public static function canCreate(): bool

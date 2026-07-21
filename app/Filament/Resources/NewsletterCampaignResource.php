@@ -18,7 +18,10 @@ class NewsletterCampaignResource extends Resource
     protected static ?string $model = NewsletterCampaign::class;
 
     protected static ?string $navigationGroup = 'Communications';
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-megaphone';
+    protected static ?string $modelLabel = 'Campagne';
+    protected static ?string $pluralModelLabel = 'Campagnes Newsletter';
+    protected static ?string $navigationLabel = 'Campagnes';
 
     public static function form(Form $form): Form
     {

@@ -19,4 +19,11 @@ class Cohort extends Model
     {
         return $this->hasMany(CohortRegistration::class);
     }
+
+    public function isRegistrationOpen()
+    {
+        if (!$this->registration_end_date) return true;
+        return now()->startOfDay()->lte($this->registration_end_date->endOfDay());
+    }
+
 }

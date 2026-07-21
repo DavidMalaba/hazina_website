@@ -18,7 +18,10 @@ class ProvinceResource extends Resource
     protected static ?string $model = Province::class;
 
     protected static ?string $navigationGroup = "Localisations";
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-map';
+    protected static ?string $modelLabel = 'Province';
+    protected static ?string $pluralModelLabel = 'Provinces';
+    protected static ?string $navigationLabel = 'Provinces';
 
     public static function form(Form $form): Form
     {

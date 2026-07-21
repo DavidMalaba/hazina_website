@@ -18,7 +18,10 @@ class CohortRegistrationResource extends Resource
     protected static ?string $model = CohortRegistration::class;
 
     protected static ?string $navigationGroup = "Événements";
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
+    protected static ?string $modelLabel = 'Candidature';
+    protected static ?string $pluralModelLabel = 'Candidatures';
+    protected static ?string $navigationLabel = 'Candidatures';
 
     public static function form(Form $form): Form
     {
@@ -177,8 +180,21 @@ class CohortRegistrationResource extends Resource
                         'pending' => 'warning',
                         'accepted' => 'success',
                         'rejected' => 'danger',
+                        'draft' => 'gray',
                         default => 'gray',
                     }),
+                Tables\Columns\TextColumn::make('current_step')
+                    ->label('Étape actuelle')
+                    ->badge()
+                    ->color('info')
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'informations_personnelles' => 'Infos personnelles',
+                        'entreprise' => 'Entreprise',
+                        'documents' => 'Documents',
+                        'projet' => 'Projet',
+                        default => $state,
+                    })
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Date')
                     ->dateTime('d M Y')

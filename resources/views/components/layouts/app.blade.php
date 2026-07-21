@@ -70,6 +70,47 @@
                                 Actualités
                                 <span class="absolute left-0 -bottom-0.5 h-0.5 rounded-full bg-gradient-to-r from-emerald-400 via-sky-500 to-violet-500 transition-all duration-300 {{ request()->routeIs('blog.*') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
                             </a>
+                            @auth
+                                <div class="relative group">
+                                    <button class="flex items-center gap-2 text-sm font-bold text-slate-700 hover:text-emerald-600 transition-colors focus:outline-none py-2 bg-slate-100 hover:bg-emerald-50 px-4 rounded-full">
+                                        <div class="w-6 h-6 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center text-xs">
+                                            {{ strtoupper(substr(Auth::user()->first_name, 0, 1) . substr(Auth::user()->last_name, 0, 1)) }}
+                                        </div>
+                                        <span>{{ Auth::user()->first_name }}</span>
+                                        <svg class="w-4 h-4 transition-transform group-hover:rotate-180 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                                    </button>
+                                    <div class="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl py-2 opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200 transform origin-top-right z-50 border border-slate-100">
+                                        <div class="px-4 py-3 border-b border-slate-100 mb-2">
+                                            <p class="text-xs text-slate-500 uppercase tracking-wider font-bold">Connecté en tant que</p>
+                                            <p class="text-sm font-semibold text-slate-900 truncate">{{ Auth::user()->email }}</p>
+                                        </div>
+                                        <a href="{{ route('dashboard') }}" wire:navigate class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-emerald-700 transition-colors flex items-center gap-2">
+                                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                                            Tableau de bord
+                                        </a>
+                                        <a href="{{ route('profile') }}" wire:navigate class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-emerald-700 transition-colors flex items-center gap-2">
+                                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                                            Mon Profil
+                                        </a>
+                                        <a href="{{ route('applications') }}" wire:navigate class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-emerald-700 transition-colors flex items-center gap-2">
+                                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                            Mes Souscriptions
+                                        </a>
+                                        <div class="h-px bg-slate-100 my-2"></div>
+                                        <form method="POST" action="{{ route('logout') }}" x-data>
+                                            @csrf
+                                            <button type="submit" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2">
+                                                <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                                                Se déconnecter
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            @else
+                                <a href="{{ route('login') }}" wire:navigate class="text-sm font-semibold text-emerald-600 hover:text-emerald-700 transition py-2">
+                                    Se connecter
+                                </a>
+                            @endauth
                             <a href="{{ route('contact') }}" wire:navigate class="px-5 py-2.5 text-sm font-semibold text-slate-900 bg-gradient-to-r from-emerald-400 to-emerald-500 hover:from-emerald-500 hover:to-emerald-600 rounded-full transition-all duration-300 shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50 hover:scale-105">
                                 Contactez-nous
                             </a>
@@ -99,6 +140,41 @@
                         <a href="{{ route('programs') }}" wire:navigate class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-slate-600 hover:text-emerald-600 hover:bg-slate-50 hover:border-emerald-500 transition">
                             Programmes
                         </a>
+                        
+                        @auth
+                            <div class="border-t border-slate-100 mt-4 pt-4 pb-2">
+                                <div class="px-4 flex items-center gap-3 mb-3">
+                                    <div class="w-10 h-10 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center font-bold">
+                                        {{ strtoupper(substr(Auth::user()->first_name, 0, 1) . substr(Auth::user()->last_name, 0, 1)) }}
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-bold text-slate-900">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</p>
+                                        <p class="text-xs text-slate-500">{{ Auth::user()->email }}</p>
+                                    </div>
+                                </div>
+                                <a href="{{ route('dashboard') }}" wire:navigate class="block px-4 py-2 text-base font-medium text-slate-600 hover:text-emerald-600 hover:bg-slate-50 transition flex items-center gap-2">
+                                    Tableau de bord
+                                </a>
+                                <a href="{{ route('profile') }}" wire:navigate class="block px-4 py-2 text-base font-medium text-slate-600 hover:text-emerald-600 hover:bg-slate-50 transition flex items-center gap-2">
+                                    Mon Profil
+                                </a>
+                                <a href="{{ route('applications') }}" wire:navigate class="block px-4 py-2 text-base font-medium text-slate-600 hover:text-emerald-600 hover:bg-slate-50 transition flex items-center gap-2">
+                                    Mes Souscriptions
+                                </a>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="w-full text-left px-4 py-2 text-base font-medium text-red-600 hover:bg-red-50 transition mt-2">
+                                        Se déconnecter
+                                    </button>
+                                </form>
+                            </div>
+                        @else
+                            <div class="border-t border-slate-100 mt-4 pt-4 pb-2 px-4 space-y-3">
+                                <a href="{{ route('login') }}" wire:navigate class="block w-full text-center py-2.5 border border-emerald-500 text-emerald-600 font-semibold rounded-xl hover:bg-emerald-50 transition">
+                                    Se connecter
+                                </a>
+                            </div>
+                        @endauth
                         <a href="{{ route('partners') }}" wire:navigate class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-slate-600 hover:text-emerald-600 hover:bg-slate-50 hover:border-emerald-500 transition">
                             Partenaires
                         </a>
@@ -192,6 +268,8 @@
             </footer>
         </div>
 
-        <livewire:floating-cohort-widget />
+        @if(!request()->routeIs('cohorts.register.*'))
+            <livewire:floating-cohort-widget />
+        @endif
     </body>
 </html>

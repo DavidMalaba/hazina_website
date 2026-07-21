@@ -23,6 +23,8 @@ class User extends Authenticatable implements FilamentUser, HasName
     protected $fillable = [
         'first_name',
         'last_name',
+        'province_id',
+        'city_id',
         'role_id',
         'email',
         'phone',
@@ -56,12 +58,23 @@ class User extends Authenticatable implements FilamentUser, HasName
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'birthdate' => 'date',
+            'otp_expires_at' => 'datetime',
         ];
     }
 
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function province()
+    {
+        return $this->belongsTo(Province::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
     }
 
     public function companies()

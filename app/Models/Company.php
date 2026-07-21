@@ -11,6 +11,7 @@ class Company extends Model
         'type',
         'partner_category',
         'logo',
+        'show_on_website',
         'email',
         'website',
         'description',
@@ -22,6 +23,10 @@ class Company extends Model
         'address',
         'province_id',
         'city_id',
+    ];
+
+    protected $casts = [
+        'show_on_website' => 'boolean',
     ];
 
     public function province()
