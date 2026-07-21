@@ -1,21 +1,32 @@
-<x-mail::message>
-# Nouveau message de contact
+@component('emails.layout')
+    @slot('title', 'Nouveau message de contact')
+    @slot('headerTitle', 'Nouveau Contact')
+    @slot('greeting', 'Bonjour l\'équipe,')
 
-Vous avez reçu un nouveau message via le formulaire de contact du site.
+    <div class="text">
+        Un nouveau message a été envoyé via le formulaire de contact.
+    </div>
 
-**Nom :** {{ $contactMessage->name }}  
-**Email :** {{ $contactMessage->email }}  
-**Sujet :** {{ $contactMessage->subject }}  
+    <div class="card">
+        <span class="card-title">Détails de l'expéditeur</span>
+        <div class="card-row">
+            <span class="card-label">Nom :</span>
+            <span class="card-value">{{ $contactMessage->name }}</span>
+        </div>
+        <div class="card-row">
+            <span class="card-label">Email :</span>
+            <span class="card-value">{{ $contactMessage->email }}</span>
+        </div>
+        <div class="card-row">
+            <span class="card-label">Sujet :</span>
+            <span class="card-value">{{ $contactMessage->subject }}</span>
+        </div>
+    </div>
 
-**Message :**
-<x-mail::panel>
-{{ $contactMessage->message }}
-</x-mail::panel>
-
-<x-mail::button :url="'mailto:' . $contactMessage->email" color="success">
-Répondre à {{ $contactMessage->name }}
-</x-mail::button>
-
-Merci,<br>
-L'équipe {{ config('app.name') }}
-</x-mail::message>
+    <div class="card">
+        <span class="card-title">Message</span>
+        <div class="text" style="margin-bottom: 0;">
+            {{ $contactMessage->message }}
+        </div>
+    </div>
+@endcomponent

@@ -19,24 +19,6 @@ use App\Livewire\User\ApplicationDetail;
 
 Route::get('/', App\Livewire\Home::class)->name('home');
 Route::get('/about', App\Livewire\About::class)->name('about');
-Route::get('/preview-email-1', function () {
-    $user = \App\Models\User::first() ?? \App\Models\User::factory()->make(['first_name' => 'Jean', 'last_name' => 'Dupont', 'email' => 'jean@example.com', 'phone' => '+243999999999']);
-    $company = \App\Models\Company::with(['province', 'city'])->first() ?? new \App\Models\Company(['name' => 'Hazina Startup', 'industry_sector' => 'Technologie']);
-    $cohort = \App\Models\Cohort::first() ?? new \App\Models\Cohort(['name' => 'Cohorte Alpha 2026']);
-    $registration = \App\Models\CohortRegistration::first() ?? new \App\Models\CohortRegistration(['problem_solved' => 'Le manque de traçabilité dans le secteur.', 'target_market' => 'Les coopératives minières artisanales.']);
-
-    return new \App\Mail\RegistrationConfirmed($user, $company, $registration, $cohort);
-});
-
-Route::get('/preview-email-setup', function () {
-    $user = \App\Models\User::first() ?? \App\Models\User::factory()->make(['first_name' => 'Jean']);
-    return new \App\Mail\SetupAccountMail($user, url('/setup-password/ABC123XYZ'), '458921');
-});
-
-Route::get('/preview-email-2fa', function () {
-    $user = \App\Models\User::first() ?? \App\Models\User::factory()->make(['first_name' => 'Jean']);
-    return new \App\Mail\TwoFactorCodeMail($user, '829104', '192.168.1.45', 'Chrome 114 sur Windows', 'Kinshasa, RDC');
-});
 Route::get('/mission-vision', App\Livewire\MissionVision::class)->name('mission-vision');
 Route::get('/solutions', App\Livewire\Solutions::class)->name('solutions');
 Route::get('/cohorts', App\Livewire\Cohorts\Index::class)->name('cohorts.index');
@@ -79,3 +61,4 @@ Route::middleware('auth')->group(function () {
         return redirect('/');
     })->name('logout');
 });
+

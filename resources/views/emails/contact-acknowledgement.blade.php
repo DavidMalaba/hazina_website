@@ -1,32 +1,29 @@
-<x-mail::message>
-# Bonjour {{ $contactMessage->name }},
+@component('emails.layout')
+    @slot('title', 'Message reçu')
+    @slot('headerTitle', 'Message Reçu')
+    @slot('greeting', 'Bonjour ' . $contactMessage->name . ',')
 
-Nous avons bien reçu votre message concernant **"{{ $contactMessage->subject }}"** et nous vous en remercions.
+    <div class="text">
+        Nous avons bien reçu votre message concernant <strong>{{ $contactMessage->subject }}</strong> et nous vous en remercions.
+        <br><br>
+        Notre équipe va traiter votre demande dans les plus brefs délais.
+    </div>
 
-Notre équipe va traiter votre demande dans les plus brefs délais.
+    <div class="card">
+        <span class="card-title">Votre message :</span>
+        <div class="text" style="margin-bottom: 0;">
+            <em>"{{ $contactMessage->message }}"</em>
+        </div>
+    </div>
 
-<x-mail::panel>
-**Votre message :**
-*"{{ $contactMessage->message }}"*
-</x-mail::panel>
+    <div class="text" style="margin-top: 30px;">
+        En attendant notre réponse, n'hésitez pas à découvrir notre écosystème :
+    </div>
 
----
+    <div class="button-container" style="display: flex; flex-direction: column; gap: 10px; align-items: center;">
+        <a href="{{ route('cohorts.index') }}" class="button" style="width: 250px;">S'inscrire à une cohorte</a>
+        <a href="{{ route('become-partner') }}" class="button" style="background-color: #3b82f6; width: 250px;">Devenir Partenaire</a>
+        <a href="{{ route('blog.index') }}" class="button" style="background-color: #64748b; width: 250px;">Lire nos articles</a>
+    </div>
 
-### En attendant notre réponse, n'hésitez pas à découvrir notre écosystème :
-
-<x-mail::button :url="route('cohorts.index')" color="success">
-🚀 S'inscrire à une cohorte
-</x-mail::button>
-
-<x-mail::button :url="url('/partenaires')" color="primary">
-🤝 Devenir Partenaire
-</x-mail::button>
-
-<x-mail::button :url="url('/blog')">
-📰 Lire nos articles
-</x-mail::button>
-
-Merci de votre confiance,
-
-**L'équipe {{ config('app.name') }}**
-</x-mail::message>
+@endcomponent

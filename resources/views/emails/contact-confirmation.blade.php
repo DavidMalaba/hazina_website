@@ -1,19 +1,23 @@
-<x-mail::message>
-# Bonjour {{ $contactMessage->name }},
+@component('emails.layout')
+    @slot('title', 'Message reçu')
+    @slot('headerTitle', 'Message Reçu')
+    @slot('greeting', 'Bonjour ' . $contactMessage->name . ',')
 
-Nous avons bien reçu votre message concernant : **{{ $contactMessage->subject }}**.
+    <div class="text">
+        Nous avons bien reçu votre message. Notre équipe va l'étudier et vous répondra dans les plus brefs délais.
+    </div>
 
-Toute l'équipe d'Hazina Mining Hub vous remercie de l'intérêt que vous nous portez. Nous avons bien pris note de votre demande et nous vous répondrons dans les plus brefs délais.
+    <div class="text">
+        <strong>Rappel de votre message :</strong>
+    </div>
+    
+    <div class="card">
+        <div class="text" style="margin-bottom: 0;">
+            {{ $contactMessage->message }}
+        </div>
+    </div>
 
-<x-mail::panel>
-**Rappel de votre message :**
-{{ $contactMessage->message }}
-</x-mail::panel>
-
-<x-mail::button :url="url('/')" color="success">
-Retourner sur le site
-</x-mail::button>
-
-À très bientôt,<br>
-L'équipe {{ config('app.name') }}
-</x-mail::message>
+    <div class="text" style="font-size: 14px; color: #64748b; margin-top: 20px;">
+        Ceci est un email automatique confirmant la réception de votre demande.
+    </div>
+@endcomponent

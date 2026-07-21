@@ -1,33 +1,40 @@
-<x-mail::message>
-# Nouvelle Demande de Partenariat
+@component('emails.layout')
+    @slot('title', 'Nouvelle demande de partenariat')
+    @slot('headerTitle', 'Nouveau Partenaire')
+    @slot('greeting', 'Bonjour l\'équipe,')
 
-Une nouvelle organisation souhaite devenir partenaire d'Hazina Mining Hub.
+    <div class="text">
+        Une nouvelle demande de partenariat a été soumise sur le site Hazina Startup.
+    </div>
 
-**Organisation :** {{ $partnerRequest->org_name }} ({{ $partnerRequest->org_type }})  
-@if($partnerRequest->website)
-**Site Web :** {{ $partnerRequest->website }}  
-@endif
+    <div class="card">
+        <span class="card-title">Détails de la demande</span>
+        <div class="card-row">
+            <span class="card-label">Entreprise :</span>
+            <span class="card-value">{{ $partnerRequest->company_name }}</span>
+        </div>
+        <div class="card-row">
+            <span class="card-label">Type :</span>
+            <span class="card-value">{{ $partnerRequest->partnership_type }}</span>
+        </div>
+        <div class="card-row">
+            <span class="card-label">Contact :</span>
+            <span class="card-value">{{ $partnerRequest->contact_name }}</span>
+        </div>
+        <div class="card-row">
+            <span class="card-label">Email :</span>
+            <span class="card-value">{{ $partnerRequest->email }}</span>
+        </div>
+        <div class="card-row">
+            <span class="card-label">Téléphone :</span>
+            <span class="card-value">{{ $partnerRequest->phone ?? 'Non renseigné' }}</span>
+        </div>
+    </div>
 
-**Personne de contact :** {{ $partnerRequest->contact_name }} ({{ $partnerRequest->contact_role }})  
-**Email :** {{ $partnerRequest->email }}  
-**Téléphone :** {{ $partnerRequest->phone }}  
-
-**Domaines d'intérêt :**
-@foreach($partnerRequest->interests as $interest)
-- {{ $interest }}
-@endforeach
-
-@if($partnerRequest->message)
-**Message / Proposition de valeur :**
-<x-mail::panel>
-{{ $partnerRequest->message }}
-</x-mail::panel>
-@endif
-
-<x-mail::button :url="'mailto:' . $partnerRequest->email" color="success">
-Contacter {{ $partnerRequest->contact_name }}
-</x-mail::button>
-
-Merci,<br>
-L'équipe {{ config('app.name') }}
-</x-mail::message>
+    <div class="card">
+        <span class="card-title">Message</span>
+        <div class="text" style="margin-bottom: 0;">
+            {{ $partnerRequest->message }}
+        </div>
+    </div>
+@endcomponent

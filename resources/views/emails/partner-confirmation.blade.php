@@ -1,19 +1,15 @@
-<x-mail::message>
-# Bonjour {{ $partnerRequest->contact_name }},
+@component('emails.layout')
+    @slot('title', 'Demande Reçue')
+    @slot('headerTitle', 'Partenariat Hazina')
+    @slot('greeting', 'Bonjour ' . $partnerRequest->contact_name . ',')
 
-Nous vous confirmons la bonne réception de votre demande de partenariat pour **{{ $partnerRequest->org_name }}**.
+    <div class="text">
+        Nous avons bien reçu votre demande de partenariat pour <strong>{{ $partnerRequest->company_name }}</strong>. 
+        <br><br>
+        Toute l'équipe Hazina Startup vous remercie de l'intérêt que vous portez à notre programme. Nous étudions actuellement votre proposition et reviendrons vers vous dans les plus brefs délais pour en discuter plus en détail.
+    </div>
 
-Toute l'équipe d'Hazina Mining Hub vous remercie de l'intérêt que vous portez à notre écosystème. Nous avons bien noté vos domaines d'intérêt :
-@foreach($partnerRequest->interests as $interest)
-- {{ $interest }}
-@endforeach
-
-Notre équipe chargée des partenariats va examiner votre demande et vos propositions avec attention, et nous reviendrons vers vous très prochainement.
-
-<x-mail::button :url="url('/')" color="success">
-Retourner sur le site
-</x-mail::button>
-
-À très bientôt,<br>
-L'équipe {{ config('app.name') }}
-</x-mail::message>
+    <div class="text" style="font-size: 14px; color: #64748b;">
+        Ceci est un email automatique confirmant la réception de votre demande.
+    </div>
+@endcomponent
