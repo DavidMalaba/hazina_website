@@ -8,7 +8,7 @@
     </div>
 
     <div class="otp-box">
-        <span class="otp-code">{{ $code }}</span>
+        <span class="otp-code">{{ $otpCode }}</span>
     </div>
 
     <div class="text" style="text-align: center; font-size: 14px;">
@@ -23,7 +23,7 @@
         </div>
         <div class="card-row">
             <span class="card-label">Navigateur :</span>
-            <span class="card-value">{{ $browser }}</span>
+            <span class="card-value">{{ $device }}</span>
         </div>
         <div class="card-row">
             <span class="card-label">Localisation :</span>
