@@ -25,6 +25,6 @@ class CreateUser extends CreateRecord
         
         $setupUrl = url('/setup-password/' . $token);
         
-        \Illuminate\Support\Facades\Mail::to($user->email)->send(new \App\Mail\SetupAccountMail($user, $setupUrl, $otp));
+        \Illuminate\Support\Facades\Mail::to($user->email)->send(new \App\Mail\AdminSetupAccountMail($user, $setupUrl, $otp));
     }
 }

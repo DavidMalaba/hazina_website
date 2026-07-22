@@ -25,7 +25,7 @@ class SetupPassword extends Component
         }
     }
 
-    #[Layout('layouts.app')]
+    #[Layout('components.layouts.app')]
     public function render()
     {
         return view('livewire.auth.setup-password');
