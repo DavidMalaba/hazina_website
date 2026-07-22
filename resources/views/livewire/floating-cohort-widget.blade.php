@@ -1,6 +1,7 @@
 <div>
     @if($showWidget && $cohort)
-        <div x-data="{ expanded: true }" 
+        <div x-data="{ expanded: localStorage.getItem('cohortWidgetExpanded') !== 'false' }" 
+             x-init="$watch('expanded', value => localStorage.setItem('cohortWidgetExpanded', value))"
              class="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-50 flex flex-col items-end">
             
             <!-- Collapsed State (Small Circle) -->
@@ -12,7 +13,7 @@
                     x-transition:leave="transition ease-in duration-200"
                     x-transition:leave-start="opacity-100 scale-100"
                     x-transition:leave-end="opacity-0 scale-50"
-                    class="w-14 h-14 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full shadow-lg shadow-emerald-900/20 flex items-center justify-center focus:outline-none hover:scale-110 transition-transform duration-200 relative group"
+                    class="w-14 h-14 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full shadow-lg shadow-emerald-900/20 flex items-center justify-center focus:outline-none hover:scale-110 transition-transform duration-200 absolute bottom-0 right-0 group"
                     style="display: none;">
                 
                 <!-- Ping animation -->

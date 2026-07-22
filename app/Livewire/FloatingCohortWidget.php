@@ -11,10 +11,15 @@ class FloatingCohortWidget extends Component
 
     public function mount()
     {
-        $currentRoute = request()->route()->getName();
+        $currentRoute = request()->route()?->getName();
         
-        // Hide widget on specific pages
-        if (in_array($currentRoute, ['cohorts.show', 'cohorts.register', 'dashboard', 'login', 'register', 'profile'])) {
+        // Show widget ONLY on these specific public pages
+        $allowedRoutes = [
+            'home', 'about', 'mission-vision', 'solutions', 'cohorts.index',
+            'programs', 'partners', 'become-partner', 'blog.index', 'blog.show', 'contact'
+        ];
+
+        if (!in_array($currentRoute, $allowedRoutes)) {
             $this->showWidget = false;
             return;
         }
