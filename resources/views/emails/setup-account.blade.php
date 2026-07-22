@@ -20,6 +20,6 @@
         Votre code de sécurité temporaire pour cette action est :
     </div>
     <div class="otp-box" style="margin: 10px 0 30px 0;">
-        <span class="otp-code">{{ $otp }}</span>
+        <span class="otp-code">{{ $otpCode }}</span>
     </div>
 @endcomponent
