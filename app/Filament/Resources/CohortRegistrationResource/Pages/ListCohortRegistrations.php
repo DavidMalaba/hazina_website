@@ -13,6 +13,33 @@ class ListCohortRegistrations extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
+            Actions\Action::make('rappeler_tous')
+                ->label('Rappeler tous les incomplets')
+                ->icon('heroicon-m-megaphone')
+                ->color('warning')
+                ->requiresConfirmation()
+                ->modalHeading('Envoyer un rappel global')
+                ->modalDescription('Cette action enverra un email à tous les candidats qui ont commencé leur inscription il y a plus de 24 heures mais qui ne l\'ont pas terminée. Voulez-vous continuer ?')
+                ->action(function () {
+                    $registrations = \App\Models\CohortRegistration::where('status', 'draft')
+                        // ->where('created_at', '<', now()->subDay()) // DISABLED FOR TESTING
+                        ->get();
+
+                    $count = 0;
+                    foreach ($registrations as $registration) {
+                        if ($registration->user && $registration->user->email) {
+                            \Illuminate\Support\Facades\Mail::to($registration->user->email)
+                                ->send(new \App\Mail\ReminderRegistrationMail($registration));
+                            $count++;
+                        }
+                    }
+
+                    \Filament\Notifications\Notification::make()
+                        ->title('Rappels envoyés')
+                        ->body("$count candidat(s) ont été relancés avec succès.")
+                        ->success()
+                        ->send();
+                }),
             Actions\CreateAction::make(),
         ];
     }

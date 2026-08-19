@@ -26,7 +26,7 @@
     <body class="font-sans antialiased bg-slate-50 text-slate-900">
         <div class="min-h-screen flex flex-col">
             <!-- Navigation -->
-            <nav x-data="{ open: false }" data-nav class="bg-white/70 backdrop-blur-xl border-b border-slate-200/60 fixed w-full z-50 transition-all duration-300">
+            <nav x-data="{ open: false }" data-nav class="bg-white/70 backdrop-blur-xl border-b border-slate-200/60 fixed w-full z-[70] transition-all duration-300">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-20">
                         <div class="flex">

@@ -22,6 +22,7 @@ class Step3 extends BaseRegisterComponent
     public $tax_id_file;
     public $company_brochure;
     public $company_name = '';
+    public $existing_docs = [];
 
     protected function getStepNumber(): int
     {
@@ -37,13 +38,27 @@ class Step3 extends BaseRegisterComponent
             $this->has_legal_documents = $company->documents()->exists();
             
             $docNat = $company->documents()->where('type', 'id_nat')->first();
-            if ($docNat) $this->id_nat = $docNat->document_number;
+            if ($docNat) {
+                $this->id_nat = $docNat->document_number;
+                if ($docNat->file_path) $this->existing_docs['id_nat'] = $docNat->id;
+            }
             
             $docRccm = $company->documents()->where('type', 'rccm')->first();
-            if ($docRccm) $this->rccm = $docRccm->document_number;
+            if ($docRccm) {
+                $this->rccm = $docRccm->document_number;
+                if ($docRccm->file_path) $this->existing_docs['rccm'] = $docRccm->id;
+            }
             
             $docTax = $company->documents()->where('type', 'tax_id')->first();
-            if ($docTax) $this->tax_id = $docTax->document_number;
+            if ($docTax) {
+                $this->tax_id = $docTax->document_number;
+                if ($docTax->file_path) $this->existing_docs['tax_id'] = $docTax->id;
+            }
+
+            $docBrochure = $company->documents()->where('type', 'brochure')->first();
+            if ($docBrochure && $docBrochure->file_path) {
+                $this->existing_docs['brochure'] = $docBrochure->id;
+            }
         }
     }
 
@@ -77,16 +92,7 @@ class Step3 extends BaseRegisterComponent
             'brochure' => [null, $brochurePath],
         ];
 
-        foreach ($documentMappings as $type => $data) {
-            [$docNumber, $path] = $data;
-            if ($path || $docNumber) {
-                CompanyDocument::updateOrCreate(
-                    ['company_id' => $company->id, 'type' => $type],
-                    ['document_number' => $docNumber, 'file_path' => $path] // Wait, if path is null, we shouldn't overwrite existing path.
-                );
-            }
-        }
-        
+
         // Let's make sure we don't overwrite file_path with null if they don't upload a new file
         foreach ($documentMappings as $type => $data) {
             [$docNumber, $path] = $data;
@@ -113,6 +119,21 @@ class Step3 extends BaseRegisterComponent
     public function clearFile(string $field)
     {
         $this->$field = null;
+    }
+
+    public function deleteExistingDocument(string $type)
+    {
+        $registration = $this->getRegistration();
+        $company = $registration->company;
+        if (!$company) return;
+
+        $doc = $company->documents()->where('type', $type)->first();
+        if ($doc && $doc->file_path) {
+            \Illuminate\Support\Facades\Storage::disk('local')->delete($doc->file_path);
+            $doc->file_path = null;
+            $doc->save();
+            $this->existing_docs[$type] = null;
+        }
     }
 
     public function render()

@@ -23,7 +23,8 @@ class SendOtpOnLogin
     {
         $user = $event->user;
         
-        if ($user && $user instanceof \App\Models\User) {
+        // Only send the Admin 2FA OTP if the user is an admin
+        if ($user && $user instanceof \App\Models\User && $user->role && $user->role->name === 'admin') {
             $otp = $user->generateOtp();
             
             // Get latest auth log to extract info, or parse it directly

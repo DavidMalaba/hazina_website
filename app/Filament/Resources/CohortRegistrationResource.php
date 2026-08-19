@@ -30,8 +30,9 @@ class CohortRegistrationResource extends Resource
                 Forms\Components\Select::make('status')
                     ->label('Statut de la candidature')
                     ->options([
-                        'pending' => 'En attente',
-                        'accepted' => 'Acceptée',
+                        'draft' => 'En cours (Incomplète)',
+                        'pending' => 'Terminée & En attente de validation',
+                        'accepted' => 'Validée par l\'admin',
                         'rejected' => 'Refusée',
                     ])
                     ->required()
@@ -46,7 +47,7 @@ class CohortRegistrationResource extends Resource
                 \Filament\Infolists\Components\Section::make('Dossier de candidature')
                     ->description('Détails complets de la demande d\'inscription.')
                     ->schema([
-                        \Filament\Infolists\Components\Grid::make(3)
+                        \Filament\Infolists\Components\Grid::make(4)
                             ->schema([
                                 \Filament\Infolists\Components\TextEntry::make('cohort.name')
                                     ->label('Cohorte visée')
@@ -64,7 +65,26 @@ class CohortRegistrationResource extends Resource
                                         'pending' => 'warning',
                                         'accepted' => 'success',
                                         'rejected' => 'danger',
+                                        'draft' => 'gray',
                                         default => 'gray',
+                                    })
+                                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                                        'draft' => 'En cours (Incomplète)',
+                                        'pending' => 'Terminée & En attente',
+                                        'accepted' => 'Validée par l\'admin',
+                                        'rejected' => 'Refusée',
+                                        default => $state,
+                                    }),
+                                \Filament\Infolists\Components\TextEntry::make('current_step')
+                                    ->label('Étape actuelle')
+                                    ->badge()
+                                    ->color('info')
+                                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                                        'informations_personnelles' => 'Étape 1 : Infos personnelles',
+                                        'entreprise' => 'Étape 2 : Entreprise',
+                                        'documents' => 'Étape 3 : Documents',
+                                        'projet' => 'Étape 4 : Projet',
+                                        default => $state,
                                     }),
                             ]),
 
@@ -73,24 +93,20 @@ class CohortRegistrationResource extends Resource
                                 \Filament\Infolists\Components\Tabs\Tab::make('L\'Entrepreneur')
                                     ->icon('heroicon-m-user')
                                     ->schema([
-                                        \Filament\Infolists\Components\RepeatableEntry::make('company.users')
-                                            ->label('Profils associés à l\'entreprise')
-                                            ->schema([
-                                                \Filament\Infolists\Components\TextEntry::make('first_name')->label('Prénom'),
-                                                \Filament\Infolists\Components\TextEntry::make('last_name')->label('Nom'),
-                                                \Filament\Infolists\Components\TextEntry::make('email')->label('Email')->icon('heroicon-m-envelope'),
-                                                \Filament\Infolists\Components\TextEntry::make('phone')->label('Téléphone')->icon('heroicon-m-phone'),
-                                                \Filament\Infolists\Components\TextEntry::make('gender')->label('Genre'),
-                                                \Filament\Infolists\Components\TextEntry::make('bio')->label('Bio')->columnSpanFull(),
-                                            ])->columns(2),
-                                    ]),
+                                        \Filament\Infolists\Components\TextEntry::make('user.first_name')->label('Prénom')->weight('bold'),
+                                        \Filament\Infolists\Components\TextEntry::make('user.last_name')->label('Nom')->weight('bold'),
+                                        \Filament\Infolists\Components\TextEntry::make('user.email')->label('Email')->icon('heroicon-m-envelope'),
+                                        \Filament\Infolists\Components\TextEntry::make('user.phone')->label('Téléphone')->icon('heroicon-m-phone'),
+                                        \Filament\Infolists\Components\TextEntry::make('user.gender')->label('Genre'),
+                                        \Filament\Infolists\Components\TextEntry::make('user.bio')->label('Bio')->columnSpanFull(),
+                                    ])->columns(2),
 
                                 \Filament\Infolists\Components\Tabs\Tab::make('L\'Entreprise')
                                     ->icon('heroicon-m-building-office')
                                     ->schema([
                                         \Filament\Infolists\Components\TextEntry::make('company.name')->label('Nom de l\'entreprise')->weight('bold'),
                                         \Filament\Infolists\Components\TextEntry::make('company.email')->label('Email de contact'),
-                                        \Filament\Infolists\Components\TextEntry::make('company.website')->label('Site Web')->url(fn ($record) => $record->company->website ? (str_starts_with($record->company->website, 'http') ? $record->company->website : 'https://'.$record->company->website) : null)->openUrlInNewTab()->color('primary'),
+                                        \Filament\Infolists\Components\TextEntry::make('company.website')->label('Site Web')->url(fn ($record) => $record->company?->website ? (str_starts_with($record->company->website, 'http') ? $record->company->website : 'https://'.$record->company->website) : null)->openUrlInNewTab()->color('primary'),
                                         \Filament\Infolists\Components\TextEntry::make('company.industry_sector')->label('Secteur d\'activité'),
                                         \Filament\Infolists\Components\TextEntry::make('company.business_age_range')->label('Âge de l\'entreprise'),
                                         \Filament\Infolists\Components\TextEntry::make('company.employee_count')->label('Nombre d\'employés'),
@@ -182,16 +198,23 @@ class CohortRegistrationResource extends Resource
                         'rejected' => 'danger',
                         'draft' => 'gray',
                         default => 'gray',
+                    })
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'draft' => 'En cours (Incomplète)',
+                        'pending' => 'Terminée & En attente',
+                        'accepted' => 'Validée',
+                        'rejected' => 'Refusée',
+                        default => $state,
                     }),
                 Tables\Columns\TextColumn::make('current_step')
                     ->label('Étape actuelle')
                     ->badge()
                     ->color('info')
                     ->formatStateUsing(fn (string $state): string => match ($state) {
-                        'informations_personnelles' => 'Infos personnelles',
-                        'entreprise' => 'Entreprise',
-                        'documents' => 'Documents',
-                        'projet' => 'Projet',
+                        'informations_personnelles' => 'Étape 1 : Infos personnelles',
+                        'entreprise' => 'Étape 2 : Entreprise',
+                        'documents' => 'Étape 3 : Documents',
+                        'projet' => 'Étape 4 : Projet',
                         default => $state,
                     })
                     ->sortable(),
@@ -205,8 +228,22 @@ class CohortRegistrationResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\Action::make('rappeler')
+                    ->label('Rappeler')
+                    ->icon('heroicon-m-paper-airplane')
+                    ->color('warning')
+                    ->hidden(fn ($record) => $record->status !== 'draft')
+                    ->action(function ($record) {
+                        \Illuminate\Support\Facades\Mail::to($record->user->email)->send(new \App\Mail\ReminderRegistrationMail($record));
+                        \Filament\Notifications\Notification::make()
+                            ->title('Rappel envoyé avec succès')
+                            ->success()
+                            ->send();
+                    })
+                    ->requiresConfirmation()
+                    ->modalHeading('Envoyer un rappel')
+                    ->modalDescription('Êtes-vous sûr de vouloir envoyer un e-mail de rappel à ce candidat pour qu\'il termine son inscription ?'),
                 Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make()->label('Modifier Statut'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

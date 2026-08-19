@@ -33,7 +33,7 @@ Route::get('/contact', App\Livewire\Contact::class)->name('contact');
 Route::get('/admin/verify-otp', VerifyOtp::class)->name('otp.verify');
 Route::get('/setup-password/{token}', SetupPassword::class)->name('password.setup');
 
-Route::get('/magic-login/{user}/{cohort:slug}', [\App\Http\Controllers\MagicLinkController::class, 'login'])->name('magic.login')->middleware('signed');
+Route::get('/magic-login/{user}/{cohort:slug}', [\App\Http\Controllers\MagicLinkController::class, 'login'])->name('magic.login')->middleware('signed')->withoutScopedBindings();
 
 Route::get('/cohorts/{cohort:slug}/register', \App\Livewire\Cohorts\Register\Start::class)->name('cohorts.register');
 
@@ -60,5 +60,30 @@ Route::middleware('auth')->group(function () {
         $request->session()->regenerateToken();
         return redirect('/');
     })->name('logout');
+
+    Route::get('/documents/preview/{document}', function (\App\Models\CompanyDocument $document) {
+        $registration = \Illuminate\Support\Facades\Auth::user()->cohortRegistrations()
+            ->whereHas('company', function($q) use ($document) {
+                $q->where('id', $document->company_id);
+            })->first();
+
+        if (!$registration && !\Illuminate\Support\Facades\Auth::user()->is_admin) {
+            abort(403);
+        }
+
+        if (!\Illuminate\Support\Facades\Storage::disk('local')->exists($document->file_path)) {
+            abort(404);
+        }
+
+        return response()->file(\Illuminate\Support\Facades\Storage::disk('local')->path($document->file_path));
+    })->name('documents.preview');
 });
 
+
+Route::get('/mail-preview/reminder', function () {
+    $registration = \App\Models\CohortRegistration::with(['user', 'cohort'])->first();
+    if (!$registration) {
+        return "Aucune candidature en base de données pour générer l'aperçu.";
+    }
+    return new \App\Mail\ReminderRegistrationMail($registration);
+});
