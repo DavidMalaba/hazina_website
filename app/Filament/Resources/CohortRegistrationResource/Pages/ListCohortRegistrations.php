@@ -22,7 +22,7 @@ class ListCohortRegistrations extends ListRecords
                 ->modalDescription('Cette action enverra un email à tous les candidats qui ont commencé leur inscription il y a plus de 24 heures mais qui ne l\'ont pas terminée. Voulez-vous continuer ?')
                 ->action(function () {
                     $registrations = \App\Models\CohortRegistration::where('status', 'draft')
-                        // ->where('created_at', '<', now()->subDay()) // DISABLED FOR TESTING
+                        ->where('created_at', '<', now()->subDay())
                         ->get();
 
                     $count = 0;

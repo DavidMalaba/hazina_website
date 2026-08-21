@@ -17,7 +17,7 @@ class ViewCohortRegistration extends ViewRecord
                 ->label('Rappeler')
                 ->icon('heroicon-m-paper-airplane')
                 ->color('warning')
-                ->hidden(fn () => $this->record->status !== 'draft')
+                ->hidden(fn () => $this->record->status !== 'draft' || $this->record->created_at > now()->subDay())
                 ->action(function () {
                     \Illuminate\Support\Facades\Mail::to($this->record->user->email)->send(new \App\Mail\ReminderRegistrationMail($this->record));
                     \Filament\Notifications\Notification::make()

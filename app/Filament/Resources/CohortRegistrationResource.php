@@ -232,7 +232,7 @@ class CohortRegistrationResource extends Resource
                     ->label('Rappeler')
                     ->icon('heroicon-m-paper-airplane')
                     ->color('warning')
-                    ->hidden(fn ($record) => $record->status !== 'draft')
+                    ->hidden(fn ($record) => $record->status !== 'draft' || $record->created_at > now()->subDay())
                     ->action(function ($record) {
                         \Illuminate\Support\Facades\Mail::to($record->user->email)->send(new \App\Mail\ReminderRegistrationMail($record));
                         \Filament\Notifications\Notification::make()

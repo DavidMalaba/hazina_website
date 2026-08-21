@@ -12,7 +12,7 @@ use Illuminate\Queue\SerializesModels;
 use App\Models\CohortRegistration;
 use Illuminate\Support\Facades\URL;
 
-class ReminderRegistrationMail extends Mailable
+class ReminderRegistrationMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
