@@ -232,9 +232,10 @@ class CohortRegistrationResource extends Resource
                     ->label('Rappeler')
                     ->icon('heroicon-m-paper-airplane')
                     ->color('warning')
-                    ->hidden(fn ($record) => $record->status !== 'draft' || $record->created_at > now()->subDay())
+                    ->hidden(fn ($record) => $record->status !== 'draft' || $record->created_at > now()->subDay() || ($record->last_reminded_at && $record->last_reminded_at > now()->subDay()))
                     ->action(function ($record) {
                         \Illuminate\Support\Facades\Mail::to($record->user->email)->send(new \App\Mail\ReminderRegistrationMail($record));
+                        $record->update(['last_reminded_at' => now()]);
                         \Filament\Notifications\Notification::make()
                             ->title('Rappel envoyé avec succès')
                             ->success()

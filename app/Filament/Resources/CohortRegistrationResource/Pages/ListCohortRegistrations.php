@@ -23,6 +23,10 @@ class ListCohortRegistrations extends ListRecords
                 ->action(function () {
                     $registrations = \App\Models\CohortRegistration::where('status', 'draft')
                         ->where('created_at', '<', now()->subDay())
+                        ->where(function($query) {
+                            $query->whereNull('last_reminded_at')
+                                  ->orWhere('last_reminded_at', '<', now()->subDay());
+                        })
                         ->get();
 
                     $count = 0;
@@ -30,6 +34,7 @@ class ListCohortRegistrations extends ListRecords
                         if ($registration->user && $registration->user->email) {
                             \Illuminate\Support\Facades\Mail::to($registration->user->email)
                                 ->send(new \App\Mail\ReminderRegistrationMail($registration));
+                            $registration->update(['last_reminded_at' => now()]);
                             $count++;
                         }
                     }

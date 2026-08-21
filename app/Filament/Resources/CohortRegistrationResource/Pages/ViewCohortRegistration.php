@@ -17,9 +17,10 @@ class ViewCohortRegistration extends ViewRecord
                 ->label('Rappeler')
                 ->icon('heroicon-m-paper-airplane')
                 ->color('warning')
-                ->hidden(fn () => $this->record->status !== 'draft' || $this->record->created_at > now()->subDay())
+                ->hidden(fn () => $this->record->status !== 'draft' || $this->record->created_at > now()->subDay() || ($this->record->last_reminded_at && $this->record->last_reminded_at > now()->subDay()))
                 ->action(function () {
                     \Illuminate\Support\Facades\Mail::to($this->record->user->email)->send(new \App\Mail\ReminderRegistrationMail($this->record));
+                    $this->record->update(['last_reminded_at' => now()]);
                     \Filament\Notifications\Notification::make()
                         ->title('Rappel envoyé avec succès')
                         ->success()
