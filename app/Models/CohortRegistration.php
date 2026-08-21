@@ -18,6 +18,7 @@ class CohortRegistration extends Model
         'target_market',
         'desired_partners',
         'status',
+        'last_reminded_at',
     ];
 
     public function cohort()
