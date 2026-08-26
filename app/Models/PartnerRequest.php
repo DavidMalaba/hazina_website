@@ -16,6 +16,7 @@ class PartnerRequest extends Model
         'phone',
         'interests',
         'message',
+        'opt_in_email', 'opt_in_sms', 'opt_in_whatsapp',
         'is_read',
     ];
 

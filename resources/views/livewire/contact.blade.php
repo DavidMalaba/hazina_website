@@ -50,6 +50,31 @@
                             <label for="message" class="block text-sm font-medium text-slate-700 mb-1">Message</label>
                             <textarea id="message" wire:model="message" rows="6" class="w-full rounded-xl border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 transition"></textarea>
                             @error('message') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                        <div class="col-span-1 md:col-span-2">
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Comment souhaitez-vous rester informé(e) ?</label>
+                            <div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                                <div class="flex items-center h-5">
+                                    <input id="opt_in_email_contact" wire:model="opt_in_email" type="checkbox" class="focus:ring-emerald-500 h-4 w-4 text-emerald-600 border-gray-300 rounded">
+                                    <div class="ml-3 text-sm">
+                                        <label for="opt_in_email_contact" class="font-medium text-slate-700">Par E-mail</label>
+                                    </div>
+                                </div>
+                                <div class="flex items-center h-5">
+                                    <input id="opt_in_whatsapp_contact" wire:model="opt_in_whatsapp" type="checkbox" class="focus:ring-emerald-500 h-4 w-4 text-emerald-600 border-gray-300 rounded">
+                                    <div class="ml-3 text-sm">
+                                        <label for="opt_in_whatsapp_contact" class="font-medium text-slate-700">Par WhatsApp</label>
+                                    </div>
+                                </div>
+                                <div class="flex items-center h-5">
+                                    <input id="opt_in_sms_contact" wire:model="opt_in_sms" type="checkbox" class="focus:ring-emerald-500 h-4 w-4 text-emerald-600 border-gray-300 rounded">
+                                    <div class="ml-3 text-sm">
+                                        <label for="opt_in_sms_contact" class="font-medium text-slate-700">Par SMS</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">Cochez les canaux sur lesquels vous souhaitez recevoir nos actualités et annonces. (Assurez-vous de fournir un numéro de téléphone pour WhatsApp/SMS).</p>
+                        </div>
+
                         </div>
                         <button type="submit" class="inline-flex justify-center items-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-slate-900 bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition shadow-lg shadow-emerald-600/20 disabled:opacity-50" wire:loading.attr="disabled">
                             <span wire:loading.remove>Envoyer le message</span>

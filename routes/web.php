@@ -87,3 +87,32 @@ Route::get('/mail-preview/reminder', function () {
     }
     return new \App\Mail\ReminderRegistrationMail($registration);
 });
+
+Route::get('/newsletter/unsubscribe/{subscriber}', [\App\Http\Controllers\NewsletterController::class, 'showUnsubscribe'])
+    ->name('newsletter.unsubscribe')
+    ->middleware('signed');
+
+Route::post('/newsletter/unsubscribe/{subscriber}', [\App\Http\Controllers\NewsletterController::class, 'processUnsubscribe'])
+    ->name('newsletter.unsubscribe.process')
+    ->middleware('signed');
+
+Route::get('/preview/newsletter-email', function () {
+    $campaign = new \App\Models\NewsletterCampaign([
+        'email_subject' => 'Votre actualité Hazina Mining Hub',
+        'email_content' => '<h2>Découvrez nos dernières nouveautés !</h2><p>Ceci est un paragraphe de démonstration pour vous montrer à quoi ressemble le texte dans votre belle newsletter. Vous pourrez y mettre du <strong>texte en gras</strong>, des liens, et des images.</p>',
+    ]);
+    $subscriber = new \App\Models\NewsletterSubscriber([
+        'name' => 'David Malaba',
+        'email' => 'david@example.com'
+    ]);
+    
+    return view('emails.newsletter-campaign', [
+        'campaign' => $campaign,
+        'subscriber' => $subscriber,
+        'unsubscribeUrl' => '#'
+    ]);
+});
+
+Route::get('/preview/newsletter-unsubscribed', function () {
+    return view('newsletter.unsubscribed');
+});

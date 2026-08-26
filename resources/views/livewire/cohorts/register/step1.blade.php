@@ -111,6 +111,31 @@
             </fieldset>
 
             <div class="pt-6 mt-8 border-t border-slate-200 flex items-center justify-between gap-4">
+            <div class="col-span-1 md:col-span-2 mb-6">
+                <label class="block text-sm font-medium text-slate-700 mb-2">Comment souhaitez-vous rester informé(e) ?</label>
+                <div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <div class="flex items-center h-5">
+                        <input id="opt_in_email_cohort" wire:model="opt_in_email" type="checkbox" class="focus:ring-emerald-500 h-4 w-4 text-emerald-600 border-gray-300 rounded">
+                        <div class="ml-3 text-sm">
+                            <label for="opt_in_email_cohort" class="font-medium text-slate-700">Par E-mail</label>
+                        </div>
+                    </div>
+                    <div class="flex items-center h-5">
+                        <input id="opt_in_whatsapp_cohort" wire:model="opt_in_whatsapp" type="checkbox" class="focus:ring-emerald-500 h-4 w-4 text-emerald-600 border-gray-300 rounded">
+                        <div class="ml-3 text-sm">
+                            <label for="opt_in_whatsapp_cohort" class="font-medium text-slate-700">Par WhatsApp</label>
+                        </div>
+                    </div>
+                    <div class="flex items-center h-5">
+                        <input id="opt_in_sms_cohort" wire:model="opt_in_sms" type="checkbox" class="focus:ring-emerald-500 h-4 w-4 text-emerald-600 border-gray-300 rounded">
+                        <div class="ml-3 text-sm">
+                            <label for="opt_in_sms_cohort" class="font-medium text-slate-700">Par SMS</label>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-500 mt-2">Cochez les canaux sur lesquels vous souhaitez recevoir nos actualités et annonces. (Assurez-vous de fournir un numéro de téléphone pour WhatsApp/SMS).</p>
+            </div>
+
                 <div></div>
                 <button type="submit" wire:loading.attr="disabled" wire:target="nextStep" class="flex items-center gap-2 px-8 py-3 rounded-full font-bold text-white bg-emerald-600 hover:bg-emerald-700 transition shadow-lg shadow-emerald-600/20 disabled:opacity-70 disabled:cursor-wait">
                     <span wire:loading.class="hidden" wire:target="nextStep" class="flex items-center gap-2">

@@ -27,6 +27,9 @@ class Step1 extends BaseRegisterComponent
     public $bio = '';
     public $user_province_id = '';
     public $user_city = '';
+    public $opt_in_email = true;
+    public $opt_in_sms = true;
+    public $opt_in_whatsapp = true;
 
     public $emailExists = false;
 
@@ -93,6 +96,7 @@ class Step1 extends BaseRegisterComponent
             'bio'              => 'nullable|string|max:1000',
             'user_province_id' => 'required|exists:provinces,id',
             'user_city'        => 'required|string',
+            'newsletter_opt_in'=> 'boolean',
         ];
     }
 
@@ -176,6 +180,23 @@ class Step1 extends BaseRegisterComponent
             ['cohort_id' => $this->cohort->id],
             ['status' => 'draft']
         );
+        
+        $registration->update([
+            'opt_in_email' => $this->opt_in_email,
+            'opt_in_sms' => $this->opt_in_sms,
+            'opt_in_whatsapp' => $this->opt_in_whatsapp
+        ]);
+
+        if ($this->opt_in_email || $this->opt_in_sms || $this->opt_in_whatsapp) {
+            \App\Models\NewsletterSubscriber::firstOrCreate(
+                ['email' => $user->email],
+                [
+                    'name' => trim($user->first_name . ' ' . $user->last_name),
+                    'phone' => $user->phone,
+                    'status' => \App\Enums\SubscriberStatus::Active,
+                ]
+            );
+        }
         
         if ($registration->wasRecentlyCreated || $registration->current_step === 'informations_personnelles') {
             $registration->update(['current_step' => 'informations_personnelles']);

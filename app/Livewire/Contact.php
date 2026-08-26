@@ -11,6 +11,9 @@ class Contact extends Component
     public $phone = '';
     public $subject = '';
     public $message = '';
+    public $opt_in_email = true;
+    public $opt_in_sms = true;
+    public $opt_in_whatsapp = true;
 
     protected $rules = [
         'name' => 'required|min:3',
@@ -18,6 +21,9 @@ class Contact extends Component
         'phone' => 'nullable|string|max:20',
         'subject' => 'required|min:5',
         'message' => 'required|min:10',
+        'opt_in_email' => 'boolean',
+        'opt_in_sms' => 'boolean',
+        'opt_in_whatsapp' => 'boolean',
     ];
 
     public function submit()
@@ -30,7 +36,23 @@ class Contact extends Component
             'phone' => $this->phone,
             'subject' => $this->subject,
             'message' => $this->message,
+            'opt_in_email' => $this->opt_in_email,
+            'opt_in_sms' => $this->opt_in_sms,
+            'opt_in_whatsapp' => $this->opt_in_whatsapp,
         ]);
+
+        if ($this->opt_in_email || $this->opt_in_sms || $this->opt_in_whatsapp) {
+            $subscriber = \App\Models\NewsletterSubscriber::firstOrNew(['email' => $this->email]);
+            $subscriber->name = $this->name;
+            if ($this->phone) {
+                $subscriber->phone = $this->phone;
+            }
+            $subscriber->status = \App\Enums\SubscriberStatus::Active;
+            $subscriber->accepts_email = $this->opt_in_email;
+            $subscriber->accepts_sms = $this->opt_in_sms;
+            $subscriber->accepts_whatsapp = $this->opt_in_whatsapp;
+            $subscriber->save();
+        }
 
         // Send email to admin (replace with actual admin email in production)
         \Illuminate\Support\Facades\Mail::to(config('mail.from.address', 'hello@hazinahub.com'))->send(new \App\Mail\ContactMessageReceived($contactMessage));

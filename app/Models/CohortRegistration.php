@@ -19,6 +19,7 @@ class CohortRegistration extends Model
         'desired_partners',
         'status',
         'last_reminded_at',
+        'opt_in_email', 'opt_in_sms', 'opt_in_whatsapp',
     ];
 
     public function cohort()

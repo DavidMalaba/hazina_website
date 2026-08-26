@@ -10,6 +10,13 @@ class ListCohortRegistrations extends ListRecords
 {
     protected static string $resource = CohortRegistrationResource::class;
 
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\CohortRegistrationResource\Widgets\CohortRegistrationStatsOverview::class,
+        ];
+    }
+
     protected function getHeaderActions(): array
     {
         return [

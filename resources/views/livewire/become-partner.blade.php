@@ -108,6 +108,31 @@
                     </div>
                 </div>
 
+                    <div class="col-span-1 md:col-span-2 mb-6">
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Comment souhaitez-vous rester informé(e) des opportunités ?</label>
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <div class="flex items-center h-5">
+                                <input id="opt_in_email_partner" wire:model="opt_in_email" type="checkbox" class="focus:ring-emerald-500 h-4 w-4 text-emerald-600 border-gray-300 rounded">
+                                <div class="ml-3 text-sm">
+                                    <label for="opt_in_email_partner" class="font-medium text-slate-700">Par E-mail</label>
+                                </div>
+                            </div>
+                            <div class="flex items-center h-5">
+                                <input id="opt_in_whatsapp_partner" wire:model="opt_in_whatsapp" type="checkbox" class="focus:ring-emerald-500 h-4 w-4 text-emerald-600 border-gray-300 rounded">
+                                <div class="ml-3 text-sm">
+                                    <label for="opt_in_whatsapp_partner" class="font-medium text-slate-700">Par WhatsApp</label>
+                                </div>
+                            </div>
+                            <div class="flex items-center h-5">
+                                <input id="opt_in_sms_partner" wire:model="opt_in_sms" type="checkbox" class="focus:ring-emerald-500 h-4 w-4 text-emerald-600 border-gray-300 rounded">
+                                <div class="ml-3 text-sm">
+                                    <label for="opt_in_sms_partner" class="font-medium text-slate-700">Par SMS</label>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2">Cochez les canaux sur lesquels vous souhaitez recevoir nos actualités et annonces. (Assurez-vous de fournir un numéro de téléphone pour WhatsApp/SMS).</p>
+                    </div>
+
                 <div class="pt-4">
                     <button type="submit" class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-full shadow-sm text-sm font-medium text-slate-900 bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition disabled:opacity-50" wire:loading.attr="disabled">
                         <span wire:loading.remove>Soumettre la demande</span>

@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class NewsletterSubscriber extends Model
 {
-    protected $fillable = ['name', 'email', 'phone', 'is_phone_also', 'status', 'unsubscription_reason'];
+    protected $fillable = ['name', 'email', 'phone', 'is_phone_also', 'status',
+        'accepts_email',
+        'accepts_sms',
+        'accepts_whatsapp', 'unsubscription_reason'];
 
     protected $casts = [
         'status' => \App\Enums\SubscriberStatus::class,

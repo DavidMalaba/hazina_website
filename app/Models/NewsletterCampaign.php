@@ -11,8 +11,13 @@ class NewsletterCampaign extends Model
         'send_email',
         'email_subject',
         'email_content',
+        'cta_text',
+        'cta_url',
         'send_whatsapp',
         'whatsapp_content',
+        'whatsapp_image',
+        'whatsapp_cta_text',
+        'whatsapp_cta_url',
         'send_sms',
         'sms_content',
         'sent_at'
