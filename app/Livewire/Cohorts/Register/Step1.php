@@ -96,7 +96,9 @@ class Step1 extends BaseRegisterComponent
             'bio'              => 'nullable|string|max:1000',
             'user_province_id' => 'required|exists:provinces,id',
             'user_city'        => 'required|string',
-            'newsletter_opt_in'=> 'boolean',
+            'opt_in_email'=> 'boolean',
+            'opt_in_sms'=> 'boolean',
+            'opt_in_whatsapp'=> 'boolean',
         ];
     }
 
